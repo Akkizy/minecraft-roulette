@@ -480,14 +480,14 @@
 
             // 60 repetições garante conteúdo para qualquer spin
             for (let rep = 0; rep < 60; rep++) {
-                currentItems.forEach(id => {
+                currentItems.forEach((id, idx) => {
                     const texture = textureMap[id];
                     if (!texture) return;
 
                     const div = document.createElement('div');
                     div.className = 'carousel-item';
-                    // Center item está na posição 29 (meio das 60 repetições)
-                    if (rep === 29 && currentItems.indexOf(id) === 0) div.classList.add('center');
+                    // Primeiro item de cada repetição fica com center (fica no meio visual)
+                    if (idx === 0) div.classList.add('center');
                     div.innerHTML = `<img src="${texture}" alt="${id}" onerror="this.style.display='none'">`;
                     carousel.appendChild(div);
                 });
