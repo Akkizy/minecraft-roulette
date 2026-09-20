@@ -5,31 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft Roulette</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
-            font-family: 'Minecraft', 'Arial', sans-serif;
+            font-family: 'Minecraft', Arial, sans-serif;
             color: #fff;
             min-height: 100vh;
             padding: 15px;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 25px; }
         h1 {
             font-size: 2.5em;
             background: linear-gradient(135deg, #7ec850, #5aad2a);
@@ -38,13 +23,7 @@
             background-clip: text;
             margin-bottom: 8px;
         }
-
-        .subtitle {
-            color: #a0a0a0;
-            font-size: 0.95em;
-        }
-
-        /* Roleta */
+        .subtitle { color: #a0a0a0; font-size: 0.95em; }
         .carousel-container {
             position: relative;
             height: 200px;
@@ -55,7 +34,6 @@
             box-shadow: 0 0 30px rgba(126, 200, 80, 0.3);
             margin-bottom: 20px;
         }
-
         .pointer {
             position: absolute;
             top: -20px;
@@ -69,20 +47,17 @@
             z-index: 10;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
-
         .carousel-wrapper {
             width: 100%;
             height: 100%;
             overflow: hidden;
             position: relative;
         }
-
         .carousel-track {
             display: flex;
             height: 100%;
             transition: transform 0.05s linear;
         }
-
         .carousel-item {
             flex: 0 0 180px;
             display: flex;
@@ -94,12 +69,10 @@
             opacity: 0.5;
             transition: all 0.1s;
         }
-
         .carousel-item.active {
             opacity: 1;
             transform: scale(1.15);
         }
-
         .item-icon {
             width: 110px;
             height: 110px;
@@ -110,31 +83,25 @@
             background: rgba(0, 0, 0, 0.2);
             border: 2px solid transparent;
             transition: all 0.2s;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
         }
-
+        .item-icon img {
+            width: 100%;
+            height: 100%;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
         .carousel-item.active .item-icon {
             background: rgba(126, 200, 80, 0.3);
             border: 4px solid #7ec850;
-            box-shadow: 
-                0 0 25px rgba(126, 200, 80, 0.9),
-                0 0 50px rgba(126, 200, 80, 0.5),
-                inset 0 0 20px rgba(126, 200, 80, 0.4);
+            box-shadow: 0 0 25px rgba(126, 200, 80, 0.9), 0 0 50px rgba(126, 200, 80, 0.5), inset 0 0 20px rgba(126, 200, 80, 0.4);
             animation: glow 1.5s ease-in-out infinite;
         }
-
         @keyframes glow {
-            0%, 100% { 
-                box-shadow: 0 0 25px rgba(126, 200, 80, 0.9), 0 0 50px rgba(126, 200, 80, 0.5), inset 0 0 20px rgba(126, 200, 80, 0.4);
-            }
-            50% { 
-                box-shadow: 0 0 35px rgba(126, 200, 80, 1), 0 0 70px rgba(126, 200, 80, 0.7), inset 0 0 25px rgba(126, 200, 80, 0.6);
-            }
+            0%, 100% { box-shadow: 0 0 25px rgba(126, 200, 80, 0.9), 0 0 50px rgba(126, 200, 80, 0.5), inset 0 0 20px rgba(126, 200, 80, 0.4); }
+            50% { box-shadow: 0 0 35px rgba(126, 200, 80, 1), 0 0 70px rgba(126, 200, 80, 0.7), inset 0 0 25px rgba(126, 200, 80, 0.6); }
         }
-
-        .item-icon span {
-            font-size: 4em;
-        }
-
         .item-name {
             font-size: 0.9em;
             text-align: center;
@@ -142,14 +109,11 @@
             max-width: 160px;
             font-weight: 500;
         }
-
         .carousel-item.active .item-name {
             color: #7ec850;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(126, 200, 80, 0.5);
         }
-
-        /* Controles */
         .controls {
             display: flex;
             gap: 15px;
@@ -157,7 +121,6 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-
         .btn {
             padding: 12px 30px;
             font-size: 1em;
@@ -168,42 +131,34 @@
             transition: all 0.3s;
             text-transform: uppercase;
         }
-
         .btn-spin {
             background: linear-gradient(135deg, #7ec850, #5aad2a);
             color: white;
             min-width: 150px;
             box-shadow: 0 5px 20px rgba(126, 200, 80, 0.3);
         }
-
         .btn-spin:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(126, 200, 80, 0.5);
         }
-
         .btn-spin:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
-
         .btn-secondary {
             background: rgba(126, 200, 80, 0.15);
             color: #7ec850;
             border: 2px solid #7ec850;
         }
-
         .btn-secondary:hover {
             background: rgba(126, 200, 80, 0.25);
         }
-
-        /* Stats */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
             margin-bottom: 20px;
         }
-
         .stat-card {
             background: rgba(0, 0, 0, 0.4);
             border: 2px solid #7ec850;
@@ -212,21 +167,8 @@
             text-align: center;
             box-shadow: 0 0 20px rgba(126, 200, 80, 0.2);
         }
-
-        .stat-value {
-            font-size: 2em;
-            color: #7ec850;
-            font-weight: bold;
-            margin: 5px 0;
-        }
-
-        .stat-label {
-            color: #b0b0b0;
-            font-size: 0.8em;
-            text-transform: uppercase;
-        }
-
-        /* Seleção */
+        .stat-value { font-size: 2em; color: #7ec850; font-weight: bold; margin: 5px 0; }
+        .stat-label { color: #b0b0b0; font-size: 0.8em; text-transform: uppercase; }
         .selection-section {
             background: rgba(0, 0, 0, 0.4);
             border: 2px solid #7ec850;
@@ -234,15 +176,7 @@
             padding: 15px;
             margin-bottom: 20px;
         }
-
-        .section-title {
-            font-size: 1.1em;
-            color: #7ec850;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
+        .section-title { font-size: 1.1em; color: #7ec850; margin-bottom: 12px; text-transform: uppercase; font-weight: bold; }
         .category-tabs {
             display: flex;
             gap: 10px;
@@ -250,7 +184,6 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .tab-btn {
             padding: 8px 15px;
             background: rgba(126, 200, 80, 0.15);
@@ -262,16 +195,8 @@
             transition: all 0.3s;
             font-size: 0.9em;
         }
-
-        .tab-btn:hover {
-            background: rgba(126, 200, 80, 0.25);
-        }
-
-        .tab-btn.active {
-            background: #7ec850;
-            color: #0a0e27;
-        }
-
+        .tab-btn:hover { background: rgba(126, 200, 80, 0.25); }
+        .tab-btn.active { background: #7ec850; color: #0a0e27; }
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -280,7 +205,6 @@
             overflow-y: auto;
             padding: 10px 5px;
         }
-
         .item-checkbox {
             display: flex;
             flex-direction: column;
@@ -294,29 +218,33 @@
             transition: all 0.2s;
             text-align: center;
         }
-
         .item-checkbox:hover {
             background: rgba(126, 200, 80, 0.2);
             border-color: rgba(126, 200, 80, 0.6);
         }
-
         .item-checkbox input[type="checkbox"] {
             width: 18px;
             height: 18px;
             cursor: pointer;
             accent-color: #7ec850;
         }
-
         .item-checkbox label {
             font-size: 0.85em;
             cursor: pointer;
             flex: 1;
         }
-
         .item-icon-small {
-            font-size: 2em;
+            width: 40px;
+            height: 40px;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
         }
-
+        .item-icon-small img {
+            width: 100%;
+            height: 100%;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
         .select-all-btn {
             width: 100%;
             padding: 10px;
@@ -329,23 +257,9 @@
             transition: all 0.2s;
             font-weight: bold;
         }
-
-        .select-all-btn:hover {
-            background: rgba(126, 200, 80, 0.3);
-        }
-
-        /* History */
-        .history-section {
-            margin-top: 10px;
-        }
-
-        .history-title {
-            font-size: 1.1em;
-            color: #7ec850;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
+        .select-all-btn:hover { background: rgba(126, 200, 80, 0.3); }
+        .history-section { margin-top: 10px; }
+        .history-title { font-size: 1.1em; color: #7ec850; margin-bottom: 12px; text-transform: uppercase; }
         .history-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -353,7 +267,6 @@
             max-height: 200px;
             overflow-y: auto;
         }
-
         .history-item {
             background: rgba(126, 200, 80, 0.15);
             border: 1px solid rgba(126, 200, 80, 0.4);
@@ -363,76 +276,33 @@
             font-size: 0.85em;
             transition: all 0.2s;
         }
-
         .history-item:hover {
             background: rgba(126, 200, 80, 0.25);
             border-color: #7ec850;
             color: #7ec850;
         }
-
         .empty-message {
             text-align: center;
             color: #a0a0a0;
             padding: 15px;
             font-size: 0.9em;
         }
-
-        /* Scrollbar */
-        .items-grid::-webkit-scrollbar,
-        .history-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .items-grid::-webkit-scrollbar-track,
-        .history-list::-webkit-scrollbar-track {
-            background: rgba(126, 200, 80, 0.1);
-            border-radius: 10px;
-        }
-
-        .items-grid::-webkit-scrollbar-thumb,
-        .history-list::-webkit-scrollbar-thumb {
-            background: #7ec850;
-            border-radius: 10px;
-        }
-
         @media (max-width: 600px) {
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .carousel-item {
-                flex: 0 0 150px;
-            }
-
-            .item-icon {
-                width: 90px;
-                height: 90px;
-            }
-
-            .item-icon span {
-                font-size: 3em;
-            }
-
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.9em;
-            }
-
-            .items-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            }
+            h1 { font-size: 1.8em; }
+            .carousel-item { flex: 0 0 150px; }
+            .item-icon { width: 90px; height: 90px; }
+            .btn { padding: 10px 20px; font-size: 0.9em; }
+            .items-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <header>
             <h1>⛏️ Minecraft Roulette</h1>
             <p class="subtitle">Selecione os itens e gire!</p>
         </header>
 
-        <!-- Roleta -->
         <div class="carousel-container">
             <div class="pointer"></div>
             <div class="carousel-wrapper">
@@ -440,13 +310,11 @@
             </div>
         </div>
 
-        <!-- Controles -->
         <div class="controls">
             <button class="btn btn-spin" id="spinBtn">🎲 GIRAR</button>
             <button class="btn btn-secondary" id="resetBtn">↻ RESETAR</button>
         </div>
 
-        <!-- Stats -->
         <div class="stats-container">
             <div class="stat-card">
                 <div class="stat-label">Giros</div>
@@ -462,7 +330,6 @@
             </div>
         </div>
 
-        <!-- Seleção de Itens -->
         <div class="selection-section">
             <div class="section-title">🎯 Selecionar Itens</div>
             
@@ -477,7 +344,6 @@
             <button class="select-all-btn" id="selectAllBtn">✓ Selecionar Tudo</button>
         </div>
 
-        <!-- Histórico -->
         <div class="history-section">
             <div class="history-title">📜 Histórico (Últimos 20)</div>
             <div class="history-list" id="historyList"></div>
@@ -485,72 +351,104 @@
     </div>
 
     <script>
+        // TEXTURAS REAIS DO MINECRAFT
+        const textureMap = {
+        "apple": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIVBMVEUAAAD/lp3/Xmn/HCvdFyV+Nw60Ex51KAKcEBdUJAlUCQ5dkieqAAAAAXRSTlMAQObYZgAAAFhJREFUeNp9z0EOgEAIQ1GQ2jLc/8BmxhCNUbv7L2yw7+nR+/g9yNSQrqRzJCh1x+buW1BqWEOwAYEAEKgFIgESvAFnM1jWgkndppwJZoNVMvPsFklV708fJ30CoAEZcEMAAAAASUVORK5CYII=",
+        "wheat": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAFVBMVEUAAADcu2XNsVmmlVONdz1/ajNWUTi//tJYAAAAAXRSTlMAQObYZgAAAFhJREFUeNpVjrcNBEEQwzRy/Zf8wJ/ZOWUkGAhnxmeNtioiZ2WNaUVv82cfhjymafcRHG2ORjSl9A1GdHpzOqODSFOlde4LVNsCvZJQbHFmJZvh9isKbP4B8UgB4E+3qN4AAAAASUVORK5CYII=",
+        "diamond": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIVBMVEUAAAD////V//ah++hK7dks4NggxbUaqqcckZoRcnoUXlN/hNeyAAAAAXRSTlMAQObYZgAAAFxJREFUeNqNjzkOxDAMAyORS1n8/4MXyGEnQIpMN1Po2L7S3f3wiMi+O4mUbw4kKK8QGUl6OQmUyldIAhgrhABw1BWSrKqSxjnELEmqucW/I2Ae4kEC8jbxzvubfzBNAqq5tnU2AAAAAElFTkSuQmCC",
+        "emerald": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAIVBMVEUAAADb/+uv/c2C9q1B84QX3WIAqiwAlSkAexgAUwAALQC5+lfcAAAAAXRSTlMAQObYZgAAAENJREFUeNpjwApmzoTQnCKuE8CMiSpuUWABIRW31AUghmqQWhmUYdaGxgg2a4UyPEpBDIZpFe1WEAPTgTJgsGoVVpsBDRwS6h42ddsAAAAASUVORK5CYII=",
+        "gold_ingot": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAG1BMVEUAAAD//////eD99V/61krpsRXclhOyZBF1KALSidGuAAAAAXRSTlMAQObYZgAAAE5JREFUeNqVz0ESgDAMQlFMSOH+J3YmrVaX/bvHDpwk/SVSH2WnJeaKBhT5FpGGGI8iBw0xY6rGWAOvqVGkoUpuGoCqhyo357LVSfbBxRs/dgKAjgB7sgAAAABJRU5ErkJggg==",
+        "iron_ingot": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAAnRSTlMAAHaTzTgAAABWSURBVHjalc8xEcAwDENRkzKXTgIhCEIjSGbj3sWXXjpG2/ub4mbAX7B5qqrKPLULur51FwPurS46A3aPRGqCR6TtDMjeVGZEQCtIuThFz9YUZF5cfAGg5lJ3ApNkTAAAAABJRU5ErkJggg==",
+        "coal": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAHlBMVEUAAAA5PkY2NjYyMjIuLi4lJSUmHiQcHB4fFyEQEBX7Xk+fAAAAAXRSTlMAQObYZgAAAF9JREFUeNpjwAbYywsgjBJjd4hAkHBoAZihamISDmakBQmZgoRKXVOVXC1BaoVDXMIiQSIurqFuaROAjNBUt4gIIKMiNS0tIwPI4OxIbcvoBOmf0dE5cwKIwTlzArLVAFPNF7pzfq2nAAAAAElFTkSuQmCC",
+        "stick": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVR42mMYmsDTTPS/hhz3f7I1d6argw2gv+YMP7lRm4ejzZRrRgCQRhCme8YCAIbcOys8RSL/AAAAAElFTkSuQmCC",
+        "book": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIVBMVEUAAADW1ta3t7eZmZlbW1tlSxdUPhNSLhBEJQoxIQQWEAXuGgy6AAAAAXRSTlMAQObYZgAAAFNJREFUeNp1zzkOwCAMRNGJiZfx/Q8cEYyAgunel1wY15E86Wo82MedUaXTVKsYgd8xS3A/0IgXIMW12KQB6Y+4DUpjVJnMxCgbZ4lileIqmdevPwDZA8LCX6b6AAAAAElFTkSuQmCC",
+        "bone": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAElBMVEUAAAD///38++3o5dLLxqV7fmuVDo9QAAAAAXRSTlMAQObYZgAAADtJREFUeNqNz7ENADAMAkFj+P1XTk2KKHRHYZl5Jc7lhSpWa6pYhzLQnvl22rZUXkn0w3IfxGEq8Jh8AHk/AOKbFvVMAAAAAElFTkSuQmCC",
+        "string": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD39/fb29svRUeyJ3JTAAAAAXRSTlMAQObYZgAAAEVJREFUeNpjgAIOECELIpRBhBkQO/A7MDAdYHjAwM45wYSBQ/4nBwOvBX8LA/N8xhMMDD9nyzAw8P/ZAFR48wCQsIeYAwBt3gwyTtr46QAAAABJRU5ErkJggg==",
+        "ender_pearl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAIVBMVEUAAACM9OIszbE0mYglhHQbe2sQXlELTUIMNzAGOTEDJiC5a2thAAAAAXRSTlMAQObYZgAAAFtJREFUeNpjwAo4OqB0swmE1WyS5rIAJGAiVJ7mBWIYas4szwLJOM1aNb0MKLc4HchwAzKWgBhmQAaXe+XMIisGIMOtvFwRpJhhabozUAYktCxtFZACsVYh2wwA2BYa2KT1S0MAAAAASUVORK5CYII=",
+        "gunpowder": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAAnRSTlMAAHaTzTgAAABQSURBVHjanc+xDYBQEAJQF2KF6+muYBLGYGqTn1PzrYx0j9Bw/E/3y3JvdkzsVojHdswmxorFiC7MQI7FewIumywcVyP28gQosjCeCvh66gTrcxynvqTEKwAAAABJRU5ErkJggg==",
+        "leather": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAFVBMVEUAAADXa0PGXDWeSSqJOyVUJxY9HBAAIhqkAAAAAXRSTlMAQObYZgAAAFhJREFUeNp1j0sKxAAMQqMvev8jz6IfytAKWfjQgPOhJHmYCfJmThhiSTj0jNhI8uUnCAlv7y9aPwIzwX/ARvY3yGIM2ztw6AGAxfRutLvt1Uk7c1xfdv8A3EABwWVEaPMAAAAASUVORK5CYII=",
+        "arrow": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWElEQVR42mMYemDatGn/QcDFxeU/yRpv3LgBxkA26QaANHSmq4MMgGgmFYA0a8hxw20nSzOITb5mKBjumh88ePD/2LFjlGkG0fb29qQbANSEoZksQ+ieuQAKQ1gwvwu6gQAAAABJRU5ErkJggg==",
+        "clay_ball": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAG1BMVEUAAACvudasrr2hp7GUmaR1fZBebI1ARFo3OUQcuTmNAAAAAXRSTlMAQObYZgAAAEtJREFUeNpjwA/KyyE0e3BoAZhRYmIaARYwNBJObQAxjB2NwYxiJ0HXMJBcibGJMZhRaixkFpoBUpNsHBrWANLWEZraATGxowOrhQD+ng/8MnX9UgAAAABJRU5ErkJggg==",
+        "feather": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAATklEQVR42rXRsQ2AUAwD0ew/QMbJEh7oUdH9gISE24tzheu/xOtBPOLGjtGIvW82HIw+46giWk6CIDuugtUetxvn/uj9eWttbrxljA+jXU9CdVLa6TttAAAAAElFTkSuQmCC",
+        "redstone": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAGFBMVEUAAAD/AACqDwFyAABcBwBBBQA0BgUtAAChZ6iRAAAAAXRSTlMAQObYZgAAAElJREFUeNpjwA9YHKAMZxWogKJqAZjhJGQYDhZQUlR1BQk5C5kKB6WDZIyETENAcqWKykGhIBH2IFPXMLC28tSwcgYwKC/HaiEAtf4MFvnbFVwAAAAASUVORK5CYII=",
+        "glowstone": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAGFBMVEUAAAD51Jz/vF7rqk60cUCOVi5+SCFaORxHN0c3AAAAAXRSTlMAQObYZgAAAElJREFUeNpjwA/YEqCMZDWogKJKAZiRJGToDhZQUlRJAQklC5kIO4aDZIyETNxAciWKzs4uIBF2J5MUZ7C28hDXcgYwKC/HaiEA2vEMUqfTCnYAAAAASUVORK5CYII=",
+        "obsidian": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEU7J1QnHj0QDBwGAwsAAAFbDTSxAAAAaUlEQVR42gVAARGAMAj8mUA3AzhYAOUJoED/TB68Ut/xNLiFb9wVhfPpaybePs3KHJ+sqmRCVpCNBbG9+ekJvySq3hPVZI7qgl56aBihTmPph+Cyu4ng3kJ2vRSHMoQ+8FGHLU9o5FwkfyEoFb7iY82bAAAAAElFTkSuQmCC",
+        "stone": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAXklEQVR42gXBMQEAMAwEocqNgNuR8JYLb9uUruCRgLv0dFddBR6bsaF6Ucm2xTNAXddebGur4NVdV1R424xtoMewjW3zTuouUT2wgc2eyhR3XW9TVFR7CsC2PaBsxAdyLn2NNWHIVAAAAABJRU5ErkJggg==",
+        "grass": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAA8UlEQVR42gUAWW+CMPj7yXuZ0ylHOWwpR6EFC0ERh8gh+ELGEl9mwh8zEC9iv2eaVxwodpoPHxKvlJmeGVp3E4uHXah8xXJIGMbndsRf+gwrm8ooU7hm+pK5jQI/5mgODzI8P/XmrhIfsnR9Q4ckxwkx1ySIQT3WITepZuHfIWokA4ZPbri7WnLEiJVaB00+9wMaj1NvcFsUKkjjz/fSXscR74KJIcgLWRtzIF6bxmREMrDGfSUt7kjubSdNofCUiGaR/U0jqpzrjQTUrriSoeUi2rwk7QOqy2s73WOhJgnuTu4G7ANxrmksgv9dZ4WkeAPz+JNw8txdwAAAAABJRU5ErkJggg==",
+        "dirt": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAFVBMVEV5VTq5hVyHh4eWbEpsbGx0WERZPSk6VlZqAAAAa0lEQVR42gXBwQnDQAxFwSd+0FnLgs8+5SyjsA2kgZQgY9j+S8gMM61oM9R6W85NeBDs4BPLSpbk9bBeary02zGC02JIMIpVFCm5kkbtDUPIYt5HnaQuffNxPCuAgfiVH1bk7T5EkTPPovwPGbIOYwnMHcMAAAAASUVORK5CYII=",
+        "sand": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEXaz6Pt68vn5Lvj27DVxJbRuoo9qeK3AAAAZUlEQVR42gXBMQrCQABE0U9m0gtiH28wkNiP2bUXzP3P4ntscjI0qD2u7bGQ6wS76PCxD0NvQ6LC7OlBOf3u/NqY2nMxjT6jKVuZqzlYZZFLTNJ9tnQMPzNF8pJEke5JfpDsMskfw+0REW3/INgAAAAASUVORK5CYII=",
+        "oak_wood": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV0WjaYeEmRcUJfSitMPSY4Kxi/mP6UAAAAaElEQVR42gXBwQ3DIBREwSd2/90SKWAl8B0lDRAqcPpvJjM4lWpHuFevtkV9qttb3LJUezBV6nLInu7TYe2xEof15M1Q8I+3xgh8WZp5oKnkPLiprro2L8bdi8W142Egh9s+kLOnOfoDKZ4L2kN8RTwAAAAASUVORK5CYII=",
+        "oak_leaves": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAC5vLmYmZh3dXdoZGjJX6haAAAAAXRSTlMAQObYZgAAAGlJREFUeNoFgAERwyAMAD8pAtJ0AgIYaAEBbI1/TTtSNOaPiyCHDqkwtVvIia7tHzB6p1IatFtW8gazuB93e1j7tBwy8PJtR4+OkW+0cDR2exThSqQeASMalo9QZe2iV8XcmbgRp5W8Rf/WMg1MmmHulQAAAABJRU5ErkJggg==",
+        "cobblestone": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEW1tbWmpqaIh4hubW1hYWFSUlLm8qFQAAAAcUlEQVR42gVAARGDMAz8MAMjh4CSLwIWIgDSIGAD/1p2iPk5pTfFOW3QLR3nGrrGQxSLTL1wp2TJ3PF6W/yaOjSV9eEB2y3a4omQPSerG4f6biMXkP0a8X2DMdpytQkuIWuY49CuziJmclhoIcsjUvgH41gVHD61kt4AAAAASUVORK5CYII=",
+        "bedrock": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAbUlEQVR42gXBgQAAMBDEsLG8QmEKcFDVXfIGYDNBfGytRe2Qx8EBoeaebZ4pAL4jAGG18VBROIXj1VzN1eKeigoHMt9K0NWqnnCITKC9LVYc1eCdCq7c6p7AhAWAby1P4HD1NkFwJfg4uBruwH1D0lUfTgxevgAAAABJRU5ErkJggg==",
+        "lava": "data:image/png;base64,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",
+        "water": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAIABAMAAAB5lPHgAAAAJ1BMVEWlpaX////5+fnY2NjW1tbV1dXT09PS0tLPz8/Ozs7CwsK4uLiurq5q5mAmAAAADXRSTlO0tLS0tLS0tLS0tLS0frXQ3wAABURJREFUeNqN2D9uG0cUBvDvAK8hkEjRxifIAXKEHME9U1DJeBs2EkCoUREHcGfAdgxVZrMEnl5tA4aKcSMDk+9Q0fzbHXJJO9MMZojB/PD43uzOwgghd38BIInYAaAa4BGMSgL0EAgBT6N5wBjbZYc/ehpJxcKtXQj2iNwESGsCiTo1dR5CqvdpHBavPAJ//4VG4iF5hrczD2ceAyDG2LF6/owenzwXG849nHlw4EFY3EXPsqPR0CfP4w8ASJl7QvJw5vEkdx2WD3xInjN34Rj60SNZ0Hgw8zB71sUTjAZHiDH8CAGzVyigJQ+PeZg8oPFTh62xT57NiyePFo9I8uC0B6SyeHZPHh543kIQ5h6OHsw8yl3jcauLnsNm9DD1+x4BZO7hkDyXm9GjDG8mDykQrR4mj289vvHsogfioEP0dPfFw+IR+slDEUlDyx5pPYPTPhicR9AUH9HW00ePtJ7wkD2+euL/NYweXdgTMCDRGYoHpzwyee6TR3VoPG8aj2f1gJI8kjx9SiKP1qMMvW88Wj2hGGTfw8ZT8+ff4tndTJ73kycwem4Iqwnpj3g8Nda7MbjkMT03bjsFv+Fh67HqCckTdNsp4bwPLyx6OOSlatHzLGSPVI9QiweNh6MnuKMenvAwzDzL4nlcmf4E4ar1dHseZA9aT+AyebR4lNxNnmE0TIehth7yqKd/8tybXgDVM0SPm3lIi8OH7AmcPEweGjl0A+zAY43HCzn3aJc967sUHz6q6QLg1QfEtu0JeRE9fvL44qE1nstDT9isqmcHf8oj4DFPWLyKHo6eM0vJt9wQsjob0GdPgEfycO4pBSifi8dlD056lH7P4wGtnouXxTOYribPtvOQ1T8DbhoPk8ePHkbPblPmRYtHr2cefscjxcPR83UwvQdCjU/0XL0e0CVPUOCEZ3B53lcP9Rqafx9OeTj33GTP4rkSGj1OFRI6w+i5vp17/MyjICR7eqa5c6j/ludj8vh9T188vxqhxi87Z8WD6jm//Yifj3lKQpJUqlVPqJ7r4rHQeGoLXlbGbJPJE+zAs9xYgOimehg9K7z7kLJ/mDz8rudq8uQm+56lEqwenz084XEG1Ppa3LrWI5RDj40eKR6AYTV55o3RYwceGlk9TJ5t8Wj2bF31WPR8rh6beQaFQQiP6qErHvKoh2tXPbLnQfZ4BDae6Xx+fat450cPiqfmA0l1ub4k7Q/LHkX4lkeWzkpiHfH8Rg8jt5cpn614tHq65FEF4H3yCKTGp3q88P97IEvjac/z4lmpDY2HBF//3XrEp3UQoHpMHXcOIXmEMCU9LZz0JIZsk8fve6x4XmbPzlnrCSS4eGnYJI8FgGlB9pTD2twmns86eZQMxuyRI54IaT2h1PvkeRU9XgYlP0XPh+IRyOKOeMiVUt4PJUqyR+BJ5zjcTB6q0kcPs0eOeAD50nhKvZPlEby+y/G5V4Zl9LB4KOG8IywpjAVRMznHR92GQ4eBtORRXRljMHkQH7/n+Tp51Fg8vY8cXXckjBKUYT15SBGeJY9QQvJwig+ZPMG56NkxgsWgetl6pHjkwPNIZqOIsnhCen6pXhYPLXlIyp6HnuSBR0aPJs/WRs86e3z2SPHEoUyeMHo4evRZvu+sNsmD6LloPF7ATX/gEUSPHz1UjZ5l9ihc9EzHcvWQe/HB6OHk+dhFz26jLnuEDD9BPMmasXT5/l7vp370GG08n1eN50rXfetB9RDtFP3kKdRw3cWdtp3a6Bnen/zeMvfk4qeO3zdAxUKXrvHkTeceQfbI6JGwuMseGvkfU1SgCRdOlMYAAAAASUVORK5CYII=",
+        "oak_planks": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAFVBMVEW4lF+vj1WfhE1nUCx+YjeWdEHCnWJT722OAAAAaUlEQVR42gXBgRHAMAyEMKCX339jVwLZtrFt4wH6ElAoBMQqhec75A45Dw/WtrUNDQSzlwJIifoArb6sT6++SmBDt23bCASwMusxtEq1yA/lDvQ4YLFB2xobCmWBqFhiD6zq+9KKL0P9AbiHDNWkCjANAAAAAElFTkSuQmCC",
+        "crafting_table": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW8mGKuaTyeWTJzOSBVOCRLKxhBIw4aFQ0ZFAwOCwZHZAmgAAAAaElEQVR42nWPUQoDUQgDE9dEvf+FCy5vaSk7+OOAxKBn2tfimmoM4OASBgYD88EYtJnKTElKuuFgBpMUmQzj4m5HXytS9zzizKuQlPo+UVAMkSvuWK3e2PKm3ND1/3r9lit0TZ36PdMft8EDNpiNkFcAAAAASUVORK5CYII=",
+        "iron_ore": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAG1BMVEV/f3+Pj4+IdFWvjnfYr5PiwKp3Z09oaGh0dHR2kUs9AAAAdElEQVR42gXBgQHAMAjDMBtYk/8vnoQALU3bKtAElDfzKHR2SlpmAZg9aZJCW6o2mdmdpIAwe/fd0lkpqHsnRaElqUoTAM1sUt7sKwXf7p24p0LQ+0xR2gKgCLwRoemsfbN3O8XZInXvWwWcVwBVAFBoQSn8xv0DBu+myPQAAAAASUVORK5CYII=",
+        "gold_ore": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEV/f390dHRoaGiccCDrnQ5cXFz87kv//7WioqKPj48wUnvMAAAAfklEQVR42gXBgQHAQAgCsQN9C/sv3IS2lYQsAQBiwID9EMiu31h6bwZo8Zsd8WZHCPxmb9zuBijeu28lJyqCZm8nEgCSrWyCpB2oZ5tJCwaB9kJa3nsuuEll682sLcB2i2f3uzFoZsUoe5eIzt53jZiNVFD2CpC0W4AGiRYEP65HA2+xOYABAAAAAElFTkSuQmCC",
+        "diamond_ore": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEV/f3+Pj4+NrbEjlpge0NaioqLV//Z359FnZ2d0dHTXUAaKAAAAeElEQVR42gXBgQHAIAzDMLvAmvz/8CQEaWlaVKBEFZoUaHIlabMHUBmzZ2RsKdDEoVgAab4N/baptH577xnuAcDEeTOJg++RvSPNtwUszBC695zxPQjlNs6YtAUA1WaPAjXB7rf3HovOnpR37owA7ajg0BYAoAKA/g9mA6MdO18tAAAAAElFTkSuQmCC",
+        "emerald_ore": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAJFBMVEV/f390dHRSa1AX3WIAexjZ/+tB84QXxUQ3Wz4cmCloaGiPj48mkEo8AAAAfElEQVR42gXBgQHAIAzDMKcUBvX//05ClYRMAgBUoUrVhEDtlUBqLwBgNRS62iQEsC6oBkD0nFfJZCJh7tn9LoEqSNU9/b5bSe0FtRff0wRYHVitglSNwhiQ4Zw7SQAA6bP7gZCkivTX78sEpfYiuU8TIWG1jIIKgCaoBH4ExwQBmQbUuQAAAABJRU5ErkJggg==",
+        "glass": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWklEQVQ4y2O48Orlf3Lxigs3/zOAGA0NDQzkYKwGkGJg9brtqAaQ6hoUA0DOIdULGC4gFXcfPEuZAQPvguFiADnxD7OULBcgqyfbBSiZCUSAMMg0GE0MhukDAIj/+eJKhLbdAAAAAElFTkSuQmCC",
+        "bookshelf": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAV1BMVEVjKAV3MAeRERG8FhZpVDN8Yj7Mpmy8mGKzjFGbd0KfhE0nHhE2KhUsIhNBMRoxY6MqTnoxW44RjmsMa1CJiYm1tbWomwqJfgh1jhFecg1VaAlJSUk/Pz95EYrOAAAAlElEQVR42gXBW3LCMBQFwZkrhTIQ85H9r5GqPGxCYenQ7VKEo4NAnJ0GaULIKWN2Umx8wtnHNHT3UIHLmH8rp1FDAIMNYFRBCFcxSBXJLeivIJbnhIASEHtUXh9BCEdz6QRXf5ySehWP3d6T3bbeWuh+JQfAdgndZ437HWgtbNC0ioBwjTBSVeFb5vhP1IFLCCgBhDf+ck47xheS/gAAAABJRU5ErkJggg==",
+        "creeper": "data:image/png;base64,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",
+        "skeleton": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAMAAACVQ462AAAAJFBMVEUAAACtq628vLzT09PLyclJSUmCgoLj4+N5dnaOjY6lpaWXl5fGmX44AAAAAXRSTlMAQObYZgAAAWdJREFUeNqllAGOrDAMQ2On8Mfx/e/7RQujWYQKu/MsQIX0oaaCOLDljgbxW0yQpB2d3wvIYfhGUFn4QoBikfizAJlwfrsEvgX+g6DYBZYkPxcAJMH9dFwBjHt4JOi1LZHZdgOGAQ8EVfv0/MfMQ1FV6NQDQZHMD0jWm3uBbQiZbVkal6VlQrDt6jjukM1cAYBrv2DNsRW2Ld0LXjJXSUtH0krrpYO4YysFufeBG5D0Ooh7ZDkuMWAb3Eey4sT8QTDCjuD0ReWRuAARRASmdTAN81JgAyY8rWONxI50rJqwJZcKKh91FwLUdsQnYgQVO6jruoEqm8p+j2WQSIKEJZcJl0kUrgREIyHFJyBAxE5jv1XaEmdcPT97EE46jh6wqfyuO2OMnPaPDMRO72lxJM4URmZNRLeMxJkH371rJrBGJgJ5VgePTAR9FjESd7TWMqEIIbNtIxaYLZ6CstEgocEuFEBOfq7/Ad2BEFP+KMk5AAAAAElFTkSuQmCC",
+        "zombie": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAclBMVEUAAAA7Yi8+aS1JcTVOezZae0hph1ZnkFZxlVt5nGVtlVtvlVyPj496d3dra2thYWFMTEw/Pz9IdTJXdUcAmZkAW1sAaGgAf38Anp4AqKgAr68AzMw2WiU4UiZKaS0aGhomIVsoKChWScxGOqU6MYkwKHLgqjLeAAAAAXRSTlMAQObYZgAAAfhJREFUeNrt1bFuXFUUheFv7XsHCZOkiJAMIUmBxPs/EAVNQEQyFUkTe84CgaNpbI3dz9dsaRe/tk5zAjBNpWlA62l2AEmlUpB6mgEwhNTbf6lnBwRTzzQArREC5NkBLVrPtAPMSnOM+IDk2YFqsTUQT5WYdAmFae8XnSXJ3bnAqEhWZ3NciaqYY5rm7KNsjGIOh+SbVCtTabakczYwdEam4djBlDTRxrnAdGZa+uba+vFN3a9M20ydkYjQGbcO1gpViaZydMbMvNtnMq/z/n1eT2b2dzOT2fZ9mzgjMSqttz68/Z1ULCRaPReAn1H8BvgpoFeAXwFvoh+jRyf741l9YJ10DSfjmbrU2QvqQY02wUl+QcvcsuETa8uf0/7QIhLVHm1b9Hg//3jggsOCmuT6o+vkWEZI2VCnCRiok4K5vg6FlCYeMRTYkSgrNaKlaamsdn1pv3ydALsC7BJSUFAU1vyFHXfYnEyLBK1VPTUaApBMx0STmQnASKvVUm0gGkIIlVa1VqReNI/8CyQJhCaIEk1jSLR/B8AkAfI/KAikIoFGREoUYL/xPYgbR3wrlEoKFSqV6NylSROAvblxXMlG4dXt4XYHn+PKoT5rX5jSrKluXn4qwGgruR8JDv3Pd+uVg/bqqi/aJpYsk1Zfuri4uLi4uLh4xD/4aBp548FwwgAAAABJRU5ErkJggg==",
+        "spider": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgBAMAAABQs2O3AAAAKlBMVEUAAACSiX+MgndgVEhPRTxHPjWoDg49NC0yKyYmIBsmHxoaFA88AgIiAADotIQjAAAAAXRSTlMAQObYZgAAAgpJREFUeNp10rFu1EAQBuB7B8RDUCIs0tB5rUuUNAivfBKvkI5b/eNLyVkzg6hQYGfyAkn6oDwAFUUqUvA4rHTGthTlb7b4P+3urHZV4uqqsuKbHdNNz3S9A5V1NUVIVW0leQfOCuQvhNzTDJhF3W6RlUvJV5R7przjBSBxu5KbHmV73OJaUc7DBDIVIKs5zuSU4nSIkYotgSUox25z0GAtfe+qk+GWN0PCARhI1fgwyJhjpOb7QDQBN0DVJ9BRiJmhB8CQAlhlAfZNaxAfb8ziwuSLQeqmrdx8BMJi0qsvBrms6hP3AuZIFxNYRJBj6L5W9d8UYg8SGcGmjSlRFuOB1/vqz7v6mLYbcscIEoYOAjNLoB+/6urtbwarGabB2q4juBnR5dnj+fnZ4wlDM2QEbQhdVHXOoLr69PBwVFfM0sNmgEE9g5Ve34U3dTh9IcZu/0Gsw2atboDL6f37u48vL+7E4c4jaD80YU2ult0v/NvP01d+707CGMG2DVVH5uNrPk0a2oog7vYM4G1qgN6FngEAgZmc8aQKMTSBgY62KbShCwIKaTODGPhztU6csA11FTgJQhNpBuGoNM2QIGDsQx0ktfF4ARKDIiKYmUAhdMZtxzIDYN+g5xLJVO4Aw8BYAG9L7waQeiaQGwlIZ5ARu9g7a9Yc0wYFK+kCeAbgDvfegdK7qyy+4z9b0kGP3NmJngAAAABJRU5ErkJggg==",
+        "enderman": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgAgMAAADf85YXAAAADFBMVEUAAAD///8WFhYAAACHhvzsAAAAAXRSTlMAQObYZgAAAPBJREFUeNpdz0FqAzEMBVAx2yx6u54n5A69xDdI+y/wXCVrG5yuHYirdBJPEoG/mYf1YUQEkDlfvxHePkF3GCOCZQdfI5K+gEew7ZD8o9QRAby9AC5XQLkBKHqrdeVzLVEIKpT6AIj3btZqnSvE9w+0+QMg1nO2XtKEjrjs5QX+71QmzH9EzBtkU5WyQbeIhADdyq+XCFhVgU+A3bB221fAgqRJZ6mxdVeWCdob3WhyvsvhfMho2YEmxzssxwWuYOMON9WVzJcJCjJOwCJxAtjomkd8nE7HJUoZpTqGnFOt5dBNNbEwoI8YGwMpoZQx/gDlLs8Ntxsh0QAAAABJRU5ErkJggg=="
+};
+
         const itemsData = {
             items: [
-                { id: 'apple', name: 'Maçã', icon: '🍎' },
-                { id: 'wheat', name: 'Trigo', icon: '🌾' },
-                { id: 'diamond', name: 'Diamante', icon: '💎' },
-                { id: 'emerald', name: 'Esmeralda', icon: '💚' },
-                { id: 'gold_ingot', name: 'Ouro', icon: '🟡' },
-                { id: 'iron_ingot', name: 'Ferro', icon: '⬜' },
-                { id: 'coal', name: 'Carvão', icon: '⬛' },
-                { id: 'stick', name: 'Graveto', icon: '🪵' },
-                { id: 'book', name: 'Livro', icon: '📖' },
-                { id: 'bone', name: 'Osso', icon: '🦴' },
-                { id: 'string', name: 'Corda', icon: '📍' },
-                { id: 'ender_pearl', name: 'Pérola do End', icon: '🔮' },
-                { id: 'gunpowder', name: 'Pólvora', icon: '💥' },
-                { id: 'leather', name: 'Couro', icon: '🧥' },
-                { id: 'arrow', name: 'Flecha', icon: '🏹' },
-                { id: 'clay_ball', name: 'Argila', icon: '⚪' },
-                { id: 'feather', name: 'Pena', icon: '🪶' },
-                { id: 'redstone', name: 'Redstone', icon: '🔴' },
-                { id: 'glowstone', name: 'Pedra Brilhante', icon: '✨' },
-                { id: 'obsidian', name: 'Obsidiana', icon: '🟣' }
+                { id: 'apple', name: 'Maçã' },
+                { id: 'wheat', name: 'Trigo' },
+                { id: 'diamond', name: 'Diamante' },
+                { id: 'emerald', name: 'Esmeralda' },
+                { id: 'gold_ingot', name: 'Ouro' },
+                { id: 'iron_ingot', name: 'Ferro' },
+                { id: 'coal', name: 'Carvão' },
+                { id: 'stick', name: 'Graveto' },
+                { id: 'book', name: 'Livro' },
+                { id: 'bone', name: 'Osso' },
+                { id: 'string', name: 'Corda' },
+                { id: 'ender_pearl', name: 'Pérola do End' },
+                { id: 'gunpowder', name: 'Pólvora' },
+                { id: 'leather', name: 'Couro' },
+                { id: 'arrow', name: 'Flecha' },
+                { id: 'clay_ball', name: 'Argila' },
+                { id: 'feather', name: 'Pena' },
+                { id: 'redstone', name: 'Redstone' },
+                { id: 'glowstone', name: 'Pedra Brilhante' },
+                { id: 'obsidian', name: 'Obsidiana' }
             ],
             blocks: [
-                { id: 'stone', name: 'Pedra', icon: '🪨' },
-                { id: 'grass', name: 'Grama', icon: '🟢' },
-                { id: 'dirt', name: 'Terra', icon: '🟫' },
-                { id: 'sand', name: 'Areia', icon: '🟨' },
-                { id: 'oak_wood', name: 'Madeira', icon: '🪚' },
-                { id: 'oak_leaves', name: 'Folhas', icon: '🍃' },
-                { id: 'cobblestone', name: 'Pedra Irregular', icon: '🏔️' },
-                { id: 'bedrock', name: 'Rocha Matriz', icon: '⬛' },
-                { id: 'lava', name: 'Lava', icon: '🌋' },
-                { id: 'water', name: 'Água', icon: '💧' },
-                { id: 'oak_planks', name: 'Tábuas', icon: '📦' },
-                { id: 'chest', name: 'Baú', icon: '🎁' },
-                { id: 'furnace', name: 'Forno', icon: '🔥' },
-                { id: 'crafting_table', name: 'Mesa', icon: '🛠️' },
-                { id: 'iron_ore', name: 'Minério Ferro', icon: '⬜' },
-                { id: 'gold_ore', name: 'Minério Ouro', icon: '🟡' },
-                { id: 'diamond_ore', name: 'Minério Diamante', icon: '💎' },
-                { id: 'emerald_ore', name: 'Minério Esmeralda', icon: '💚' },
-                { id: 'glass', name: 'Vidro', icon: '🔲' },
-                { id: 'bookshelf', name: 'Estante', icon: '📚' }
+                { id: 'stone', name: 'Pedra' },
+                { id: 'grass', name: 'Grama' },
+                { id: 'dirt', name: 'Terra' },
+                { id: 'sand', name: 'Areia' },
+                { id: 'oak_wood', name: 'Madeira' },
+                { id: 'oak_leaves', name: 'Folhas' },
+                { id: 'cobblestone', name: 'Pedra Irregular' },
+                { id: 'bedrock', name: 'Rocha Matriz' },
+                { id: 'lava', name: 'Lava' },
+                { id: 'water', name: 'Água' },
+                { id: 'oak_planks', name: 'Tábuas' },
+                { id: 'chest', name: 'Baú' },
+                { id: 'furnace', name: 'Forno' },
+                { id: 'crafting_table', name: 'Mesa' },
+                { id: 'iron_ore', name: 'Minério Ferro' },
+                { id: 'gold_ore', name: 'Minério Ouro' },
+                { id: 'diamond_ore', name: 'Minério Diamante' },
+                { id: 'emerald_ore', name: 'Minério Esmeralda' },
+                { id: 'glass', name: 'Vidro' },
+                { id: 'bookshelf', name: 'Estante' }
             ],
             mobs: [
-                { id: 'creeper', name: 'Creeper', icon: '💚' },
-                { id: 'skeleton', name: 'Esqueleto', icon: '💀' },
-                { id: 'zombie', name: 'Zumbi', icon: '🧟' },
-                { id: 'spider', name: 'Aranha', icon: '🕷️' },
-                { id: 'enderman', name: 'Enderman', icon: '🟫' },
-                { id: 'dragon', name: 'Dragão', icon: '🐉' },
-                { id: 'wither', name: 'Wither', icon: '☠️' },
-                { id: 'witch', name: 'Bruxa', icon: '🧙' },
-                { id: 'ghast', name: 'Ghast', icon: '👻' },
-                { id: 'blaze', name: 'Blaze', icon: '🔥' },
-                { id: 'magma_cube', name: 'Magma Cube', icon: '🟠' },
-                { id: 'pigman', name: 'Porco Zombie', icon: '🐷' },
-                { id: 'guardian', name: 'Guardião', icon: '🐟' },
-                { id: 'silverfish', name: 'Traça', icon: '🪳' },
-                { id: 'cave_spider', name: 'Aranha Caverna', icon: '🕷️' },
-                { id: 'phantom', name: 'Phantom', icon: '👁️' },
-                { id: 'pillager', name: 'Saqueador', icon: '👹' },
-                { id: 'ravager', name: 'Devastador', icon: '🐄' },
-                { id: 'hoglin', name: 'Hoglin', icon: '🐗' },
-                { id: 'piglin', name: 'Piglin', icon: '👹' }
+                { id: 'creeper', name: 'Creeper' },
+                { id: 'skeleton', name: 'Esqueleto' },
+                { id: 'zombie', name: 'Zumbi' },
+                { id: 'spider', name: 'Aranha' },
+                { id: 'enderman', name: 'Enderman' },
             ]
         };
 
@@ -562,7 +460,6 @@
 
         const ITEM_WIDTH = 180;
 
-        // Elements
         const itemsGrid = document.getElementById('itemsGrid');
         const carouselTrack = document.getElementById('carouselTrack');
         const spinBtn = document.getElementById('spinBtn');
@@ -570,7 +467,6 @@
         const selectAllBtn = document.getElementById('selectAllBtn');
         const tabBtns = document.querySelectorAll('.tab-btn');
 
-        // Initialize
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 tabBtns.forEach(b => b.classList.remove('active'));
@@ -584,6 +480,10 @@
         spinBtn.addEventListener('click', spinRoulette);
         resetBtn.addEventListener('click', resetStats);
 
+        function getTexture(itemId) {
+            return textureMap[itemId] || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22%3E%3Crect fill=%22%23ccc%22 width=%2216%22 height=%2216%22/%3E%3C/svg%3E';
+        }
+
         function renderItems() {
             const items = itemsData[currentTab];
             itemsGrid.innerHTML = '';
@@ -594,7 +494,9 @@
                 div.className = 'item-checkbox';
                 div.innerHTML = `
                     <input type="checkbox" id="${item.id}" ${isSelected ? 'checked' : ''}>
-                    <span class="item-icon-small">${item.icon}</span>
+                    <div class="item-icon-small">
+                        <img src="${getTexture(item.id)}" alt="${item.name}">
+                    </div>
                     <label for="${item.id}">${item.name}</label>
                 `;
                 
@@ -645,7 +547,9 @@
                 const itemEl = document.createElement('div');
                 itemEl.className = 'carousel-item' + (index === 0 ? ' active' : '');
                 itemEl.innerHTML = `
-                    <div class="item-icon"><span>${item.icon}</span></div>
+                    <div class="item-icon">
+                        <img src="${getTexture(item.id)}" alt="${item.name}">
+                    </div>
                     <div class="item-name">${item.name}</div>
                 `;
                 carouselTrack.appendChild(itemEl);
@@ -712,7 +616,7 @@
                 );
                 const allData = [...itemsData.items, ...itemsData.blocks, ...itemsData.mobs];
                 const favoriteData = allData.find(item => item.id === favorite);
-                document.getElementById('favoriteItem').textContent = favoriteData ? favoriteData.icon : '-';
+                document.getElementById('favoriteItem').textContent = favoriteData ? favoriteData.name : '-';
             }
 
             const historyList = document.getElementById('historyList');
@@ -726,7 +630,6 @@
             updateStats();
         }
 
-        // Initialize
         renderItems();
         renderCarousel();
     </script>
