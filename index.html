@@ -13,13 +13,12 @@
 
         body {
             background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
-            font-family: 'Minecraft', 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             color: #fff;
-            overflow-x: hidden;
         }
 
         .container {
@@ -31,7 +30,6 @@
         header {
             text-align: center;
             margin-bottom: 40px;
-            animation: fadeIn 0.8s ease-out;
         }
 
         h1 {
@@ -40,7 +38,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             margin-bottom: 10px;
         }
 
@@ -82,60 +79,60 @@
             box-shadow: 0 0 20px rgba(126, 200, 80, 0.5);
         }
 
-        /* Roulette Section */
-        .roulette-section {
+        /* Roulette Container */
+        .roulette-container {
             position: relative;
             margin-bottom: 50px;
-            animation: fadeIn 0.6s ease-out 0.2s backwards;
         }
 
-        .selector-pointer {
+        .pointer {
             position: absolute;
             top: -30px;
             left: 50%;
             transform: translateX(-50%);
+            z-index: 10;
             width: 0;
             height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
             border-top: 30px solid #7ec850;
-            z-index: 10;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
-        .carousel-container {
+        .roulette-box {
             position: relative;
-            height: 150px;
+            height: 140px;
             background: rgba(0, 0, 0, 0.3);
             border: 3px solid #7ec850;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 
-                0 0 30px rgba(126, 200, 80, 0.3),
-                inset 0 0 20px rgba(126, 200, 80, 0.1);
+            box-shadow: 0 0 30px rgba(126, 200, 80, 0.3), inset 0 0 20px rgba(126, 200, 80, 0.1);
+            display: flex;
+            align-items: center;
         }
 
-        .carousel-track {
+        .roulette-items {
             display: flex;
             height: 100%;
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            gap: 10px;
+            padding: 0 20px;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .carousel-item {
-            flex: 0 0 150px;
+        .item-slot {
+            flex: 0 0 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            opacity: 0.6;
-            transition: all 0.2s ease;
-            cursor: pointer;
+            gap: 5px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
         }
 
-        .carousel-item.center {
+        .item-slot.center {
             opacity: 1;
-            transform: scale(1.15);
+            transform: scale(1.2);
         }
 
         .item-icon {
@@ -145,40 +142,38 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            transition: all 0.2s ease;
-            position: relative;
+            background: rgba(0, 0, 0, 0.2);
         }
 
-        .carousel-item.center .item-icon {
-            box-shadow: 
-                0 0 20px rgba(126, 200, 80, 0.6),
-                0 0 40px rgba(126, 200, 80, 0.3),
-                inset 0 0 10px rgba(126, 200, 80, 0.2);
+        .item-slot.center .item-icon {
             border: 3px solid #7ec850;
+            box-shadow: 0 0 20px rgba(126, 200, 80, 0.8), inset 0 0 10px rgba(126, 200, 80, 0.3);
             animation: glow 1.5s ease-in-out infinite;
         }
 
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(126, 200, 80, 0.6), 0 0 40px rgba(126, 200, 80, 0.3), inset 0 0 10px rgba(126, 200, 80, 0.2); }
-            50% { box-shadow: 0 0 30px rgba(126, 200, 80, 0.8), 0 0 60px rgba(126, 200, 80, 0.4), inset 0 0 15px rgba(126, 200, 80, 0.3); }
+            0%, 100% { box-shadow: 0 0 20px rgba(126, 200, 80, 0.8), inset 0 0 10px rgba(126, 200, 80, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(126, 200, 80, 1), inset 0 0 15px rgba(126, 200, 80, 0.5); }
         }
 
-        .item-icon svg {
-            width: 70%;
-            height: 70%;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        .item-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
         .item-name {
-            font-size: 0.9em;
+            font-size: 0.75em;
             text-align: center;
             color: #b0b0b0;
-            max-width: 140px;
-            text-transform: capitalize;
-            transition: color 0.2s ease;
+            max-width: 95px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .carousel-item.center .item-name {
+        .item-slot.center .item-name {
             color: #7ec850;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(126, 200, 80, 0.5);
@@ -215,10 +210,6 @@
             box-shadow: 0 8px 30px rgba(126, 200, 80, 0.5);
         }
 
-        .btn-spin:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
         .btn-spin:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -232,10 +223,9 @@
 
         .btn-secondary:hover {
             background: rgba(126, 200, 80, 0.25);
-            transform: translateY(-2px);
         }
 
-        /* Stats Section */
+        /* Stats */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -250,18 +240,6 @@
             padding: 20px;
             text-align: center;
             box-shadow: 0 0 20px rgba(126, 200, 80, 0.2);
-            animation: slideIn 0.6s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .stat-value {
@@ -277,22 +255,20 @@
             text-transform: uppercase;
         }
 
-        /* History Section */
+        /* History */
         .history-section {
             margin-top: 40px;
-            animation: fadeIn 0.8s ease-out 0.4s backwards;
         }
 
         .history-title {
             font-size: 1.3em;
             color: #7ec850;
             margin-bottom: 15px;
-            text-transform: uppercase;
         }
 
         .history-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 10px;
             max-height: 300px;
             overflow-y: auto;
@@ -304,72 +280,36 @@
             border-radius: 8px;
             padding: 10px;
             text-align: center;
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #b0b0b0;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 60px;
+            min-height: 50px;
         }
 
         .history-item:hover {
             background: rgba(126, 200, 80, 0.2);
-            border-color: rgba(126, 200, 80, 0.6);
             color: #7ec850;
         }
 
-        /* Responsivo */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            .carousel-item {
-                flex: 0 0 120px;
-            }
-
-            .item-icon {
-                width: 60px;
-                height: 60px;
-            }
-
-            .controls {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .btn {
-                width: 100%;
-            }
+            h1 { font-size: 2em; }
+            .item-slot { flex: 0 0 80px; }
+            .item-icon { width: 60px; height: 60px; }
+            .controls { flex-direction: column; }
+            .btn { width: 100%; }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Scrollbar */
         .history-list::-webkit-scrollbar {
             width: 8px;
         }
-
         .history-list::-webkit-scrollbar-track {
             background: rgba(126, 200, 80, 0.1);
-            border-radius: 10px;
         }
-
         .history-list::-webkit-scrollbar-thumb {
             background: #7ec850;
             border-radius: 10px;
-        }
-
-        .history-list::-webkit-scrollbar-thumb:hover {
-            background: #5aad2a;
         }
     </style>
 </head>
@@ -383,14 +323,13 @@
         <div class="selector-bar">
             <button class="category-btn active" data-category="items">Items</button>
             <button class="category-btn" data-category="blocks">Blocos</button>
-            <button class="category-btn" data-category="mobs">Mobs</button>
-            <button class="category-btn" data-category="all">Todos</button>
+            <button class="category-btn" data-category="all">Misturado</button>
         </div>
 
-        <div class="roulette-section">
-            <div class="selector-pointer"></div>
-            <div class="carousel-container">
-                <div class="carousel-track" id="carouselTrack"></div>
+        <div class="roulette-container">
+            <div class="pointer"></div>
+            <div class="roulette-box">
+                <div class="roulette-items" id="rouletteItems"></div>
             </div>
         </div>
 
@@ -421,78 +360,21 @@
     </div>
 
     <script>
-        // Items data com ícones emoji
-        const itemsData = {
+        const ITEMS_DATA = {
             items: [
-                { id: 'apple', name: 'Maçã', icon: '🍎' },
-                { id: 'wheat', name: 'Trigo', icon: '🌾' },
-                { id: 'diamond', name: 'Diamante', icon: '💎' },
-                { id: 'emerald', name: 'Esmeralda', icon: '💚' },
-                { id: 'gold_ingot', name: 'Ouro', icon: '🟡' },
-                { id: 'iron_ingot', name: 'Ferro', icon: '⬜' },
-                { id: 'coal', name: 'Carvão', icon: '⬛' },
-                { id: 'stick', name: 'Graveto', icon: '🪵' },
-                { id: 'book', name: 'Livro', icon: '📖' },
-                { id: 'bone', name: 'Osso', icon: '🦴' },
-                { id: 'string', name: 'Corda', icon: '📍' },
-                { id: 'ender_pearl', name: 'Pérola do End', icon: '🔮' },
-                { id: 'gunpowder', name: 'Pólvora', icon: '💥' },
-                { id: 'leather', name: 'Couro', icon: '🧥' },
-                { id: 'arrow', name: 'Flecha', icon: '🏹' },
-                { id: 'clay_ball', name: 'Argila', icon: '⚪' },
-                { id: 'feather', name: 'Pena', icon: '🪶' },
-                { id: 'redstone', name: 'Redstone', icon: '🔴' },
-                { id: 'glowstone', name: 'Pedra Brilhante', icon: '✨' },
-                { id: 'obsidian', name: 'Obsidiana', icon: '🟣' }
+                'apple', 'wheat', 'diamond', 'emerald', 'gold_ingot', 'iron_ingot', 'coal',
+                'stick', 'book', 'bone', 'string', 'ender_pearl', 'gunpowder', 'leather',
+                'arrow', 'clay_ball', 'feather', 'redstone', 'amethyst_shard', 'raw_gold'
             ],
             blocks: [
-                { id: 'stone', name: 'Pedra', icon: '🪨' },
-                { id: 'grass', name: 'Grama', icon: '🟢' },
-                { id: 'dirt', name: 'Terra', icon: '🟫' },
-                { id: 'sand', name: 'Areia', icon: '🟨' },
-                { id: 'oak_wood', name: 'Madeira de Carvalho', icon: '🪚' },
-                { id: 'oak_leaves', name: 'Folhas de Carvalho', icon: '🍃' },
-                { id: 'cobblestone', name: 'Pedra Irregular', icon: '🏔️' },
-                { id: 'bedrock', name: 'Rocha Matriz', icon: '🟫' },
-                { id: 'lava', name: 'Lava', icon: '🌋' },
-                { id: 'water', name: 'Água', icon: '💧' },
-                { id: 'oak_planks', name: 'Tábuas de Carvalho', icon: '📦' },
-                { id: 'chest', name: 'Baú', icon: '📦' },
-                { id: 'furnace', name: 'Forno', icon: '🔥' },
-                { id: 'crafting_table', name: 'Mesa de Trabalho', icon: '🛠️' },
-                { id: 'iron_ore', name: 'Minério de Ferro', icon: '⬜' },
-                { id: 'gold_ore', name: 'Minério de Ouro', icon: '🟡' },
-                { id: 'diamond_ore', name: 'Minério de Diamante', icon: '💎' },
-                { id: 'emerald_ore', name: 'Minério de Esmeralda', icon: '💚' },
-                { id: 'glass', name: 'Vidro', icon: '🔲' },
-                { id: 'bookshelf', name: 'Estante de Livros', icon: '📚' }
-            ],
-            mobs: [
-                { id: 'creeper', name: 'Creeper', icon: '💚' },
-                { id: 'skeleton', name: 'Esqueleto', icon: '💀' },
-                { id: 'zombie', name: 'Zumbi', icon: '🧟' },
-                { id: 'spider', name: 'Aranha', icon: '🕷️' },
-                { id: 'enderman', name: 'Enderman', icon: '🟫' },
-                { id: 'dragon', name: 'Dragão do End', icon: '🐉' },
-                { id: 'wither', name: 'Wither', icon: '☠️' },
-                { id: 'witch', name: 'Bruxa', icon: '🧙' },
-                { id: 'ghast', name: 'Ghast', icon: '👻' },
-                { id: 'blaze', name: 'Blaze', icon: '🔥' },
-                { id: 'magma_cube', name: 'Cubo de Magma', icon: '🟠' },
-                { id: 'pigman', name: 'Homem-Porco Zombie', icon: '🐷' },
-                { id: 'guardian', name: 'Guardião', icon: '🐟' },
-                { id: 'silverfish', name: 'Traça de Prata', icon: '🪳' },
-                { id: 'cave_spider', name: 'Aranha de Caverna', icon: '🕷️' },
-                { id: 'phantom', name: 'Phantom', icon: '👁️' },
-                { id: 'pillager', name: 'Saqueador', icon: '👹' },
-                { id: 'ravager', name: 'Devastador', icon: '🐄' },
-                { id: 'hoglin', name: 'Hoglin', icon: '🐗' },
-                { id: 'piglin', name: 'Piglin', icon: '👹' }
+                'stone', 'grass', 'dirt', 'sand', 'acacia_log', 'acacia_leaves', 'cobblestone',
+                'bedrock', 'oak_planks', 'oak_leaves', 'chest', 'furnace', 'iron_ore',
+                'gold_ore', 'diamond_ore', 'emerald_ore', 'glass', 'bookshelf', 'lava', 'water'
             ]
         };
 
-        let currentCategory = 'items';
-        let allItems = [...itemsData.items];
+        let currentItems = [...ITEMS_DATA.items];
+        let currentIndex = 0;
         let stats = {
             totalSpins: 0,
             uniqueItems: new Set(),
@@ -501,16 +383,12 @@
         };
         let isSpinning = false;
 
-        const carouselTrack = document.getElementById('carouselTrack');
+        const rouletteItemsEl = document.getElementById('rouletteItems');
         const spinBtn = document.getElementById('spinBtn');
         const resetBtn = document.getElementById('resetBtn');
-        const totalSpinsEl = document.getElementById('totalSpins');
-        const uniqueItemsEl = document.getElementById('uniqueItems');
-        const favoriteItemEl = document.getElementById('favoriteItem');
-        const historyList = document.getElementById('historyList');
         const categoryBtns = document.querySelectorAll('.category-btn');
 
-        // Change category
+        // Mudar categoria
         categoryBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 categoryBtns.forEach(b => b.classList.remove('active'));
@@ -518,42 +396,38 @@
                 
                 const category = e.target.dataset.category;
                 if (category === 'all') {
-                    allItems = [
-                        ...itemsData.items,
-                        ...itemsData.blocks,
-                        ...itemsData.mobs
-                    ];
+                    currentItems = [...ITEMS_DATA.items, ...ITEMS_DATA.blocks];
                 } else {
-                    allItems = [...itemsData[category]];
+                    currentItems = [...ITEMS_DATA[category]];
                 }
-                currentCategory = category;
-                
-                renderCarousel();
+                currentIndex = 0;
+                renderRoulette();
             });
         });
 
-        function renderCarousel() {
-            carouselTrack.innerHTML = '';
+        function getImagePath(itemName) {
+            // Tentar item primeiro, depois bloco
+            return `../minecraft/textures/item/${itemName}.png`;
+        }
+
+        function renderRoulette() {
+            rouletteItemsEl.innerHTML = '';
             
-            // Triplicar items para criar efeito infinito
-            const tripleItems = [...allItems, ...allItems, ...allItems];
-            
-            tripleItems.forEach((item, index) => {
-                const itemEl = document.createElement('div');
-                itemEl.className = 'carousel-item' + (index === allItems.length + Math.floor(allItems.length / 2) ? ' center' : '');
-                itemEl.innerHTML = `
+            // Mostrar 5 items: 2 antes, 1 no centro, 2 depois (com wraparound)
+            for (let i = -2; i <= 2; i++) {
+                const index = (currentIndex + i + currentItems.length) % currentItems.length;
+                const itemName = currentItems[index];
+                
+                const slot = document.createElement('div');
+                slot.className = 'item-slot' + (i === 0 ? ' center' : '');
+                slot.innerHTML = `
                     <div class="item-icon">
-                        <span style="font-size: 2em;">${item.icon}</span>
+                        <img src="${getImagePath(itemName)}" alt="${itemName}" onerror="this.style.display='none'">
                     </div>
-                    <div class="item-name">${item.name}</div>
+                    <div class="item-name">${itemName.replace(/_/g, ' ')}</div>
                 `;
-                carouselTrack.appendChild(itemEl);
-            });
-            
-            // Posicionar no centro
-            const itemWidth = 150;
-            const offset = -allItems.length * itemWidth;
-            carouselTrack.style.transform = `translateX(${offset}px)`;
+                rouletteItemsEl.appendChild(slot);
+            }
         }
 
         function spinRoulette() {
@@ -562,59 +436,61 @@
             isSpinning = true;
             spinBtn.disabled = true;
             
-            const spins = 15 + Math.floor(Math.random() * 10);
-            const randomIndex = Math.floor(Math.random() * allItems.length);
-            const itemWidth = 150;
+            // Escolher um item aleatório
+            const randomIndex = Math.floor(Math.random() * currentItems.length);
+            const totalRotations = 15 + Math.floor(Math.random() * 10);
+            const totalSteps = totalRotations * currentItems.length;
             
-            let currentSpin = 0;
+            let step = 0;
             
             const spinInterval = setInterval(() => {
-                currentSpin++;
-                const offset = -allItems.length * itemWidth + (randomIndex * itemWidth) - (currentSpin * itemWidth);
-                carouselTrack.style.transform = `translateX(${offset}px)`;
+                step++;
+                currentIndex = (currentIndex + 1) % currentItems.length;
+                renderRoulette();
                 
-                if (currentSpin >= spins) {
+                if (step >= totalSteps) {
                     clearInterval(spinInterval);
                     
-                    const selectedItem = allItems[randomIndex];
-                    recordSpin(selectedItem);
+                    // Ajustar para exatamente no índice correto
+                    currentIndex = randomIndex;
+                    renderRoulette();
+                    
+                    recordSpin(currentItems[randomIndex]);
                     
                     isSpinning = false;
                     spinBtn.disabled = false;
                 }
-            }, 50);
+            }, 30);
         }
 
-        function recordSpin(item) {
+        function recordSpin(itemName) {
             stats.totalSpins++;
-            stats.uniqueItems.add(item.id);
-            stats.itemCounts[item.id] = (stats.itemCounts[item.id] || 0) + 1;
-            stats.history.unshift(item.name);
+            stats.uniqueItems.add(itemName);
+            stats.itemCounts[itemName] = (stats.itemCounts[itemName] || 0) + 1;
+            stats.history.unshift(itemName.replace(/_/g, ' '));
             if (stats.history.length > 20) stats.history.pop();
             
             updateStats();
         }
 
         function updateStats() {
-            totalSpinsEl.textContent = stats.totalSpins;
-            uniqueItemsEl.textContent = stats.uniqueItems.size;
+            document.getElementById('totalSpins').textContent = stats.totalSpins;
+            document.getElementById('uniqueItems').textContent = stats.uniqueItems.size;
             
-            // Favorite item
-            if (Object.keys(stats.itemCounts).length > 0) {
-                const favorite = Object.keys(stats.itemCounts).reduce((a, b) => 
-                    stats.itemCounts[a] > stats.itemCounts[b] ? a : b
+            if (stats.uniqueItems.size > 0) {
+                const favorite = [...stats.uniqueItems].reduce((a, b) => 
+                    (stats.itemCounts[a] || 0) > (stats.itemCounts[b] || 0) ? a : b
                 );
-                const favoriteData = allItems.find(item => item.id === favorite);
-                favoriteItemEl.textContent = favoriteData ? favoriteData.name : '-';
+                document.getElementById('favoriteItem').textContent = favorite.replace(/_/g, ' ');
             }
             
-            // History
-            historyList.innerHTML = stats.history.map(name => 
-                `<div class="history-item">${name}</div>`
-            ).join('');
+            document.getElementById('historyList').innerHTML = stats.history
+                .map(name => `<div class="history-item">${name}</div>`)
+                .join('');
         }
 
-        function resetAll() {
+        spinBtn.addEventListener('click', spinRoulette);
+        resetBtn.addEventListener('click', () => {
             stats = {
                 totalSpins: 0,
                 uniqueItems: new Set(),
@@ -622,13 +498,10 @@
                 history: []
             };
             updateStats();
-        }
+        });
 
-        spinBtn.addEventListener('click', spinRoulette);
-        resetBtn.addEventListener('click', resetAll);
-
-        // Initialize
-        renderCarousel();
+        // Inicializar
+        renderRoulette();
         updateStats();
     </script>
 </body>
