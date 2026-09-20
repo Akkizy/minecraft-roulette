@@ -20,23 +20,52 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-size: 2em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .winner-display {
+            text-align: center;
+            margin-bottom: 30px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #2a2a2a;
+            border: 3px solid #22c55e;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .winner-display img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            margin-bottom: 15px;
+        }
+
+        .winner-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #22c55e;
+            text-transform: capitalize;
         }
 
         .carousel-container {
             position: relative;
             width: 100%;
-            height: 240px;
+            height: 200px;
             background: #2a2a2a;
-            border: 3px solid #22c55e;
+            border: 2px solid #444;
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 30px;
@@ -50,7 +79,8 @@
         }
 
         .carousel-item {
-            min-width: 180px;
+            flex-shrink: 0;
+            width: 120px;
             height: 100%;
             display: flex;
             align-items: center;
@@ -60,16 +90,11 @@
         }
 
         .carousel-item img {
-            width: 140px;
-            height: 140px;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
-        }
-
-        .carousel-item.center {
-            border: 4px solid #22c55e;
-            box-shadow: inset 0 0 10px rgba(34, 197, 94, 0.3);
         }
 
         .carousel-pointer {
@@ -79,9 +104,9 @@
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 12px solid #22c55e;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #22c55e;
             z-index: 10;
         }
 
@@ -108,7 +133,7 @@
             background: #22c55e;
             color: #000;
             flex: 1;
-            max-width: 300px;
+            max-width: 350px;
         }
 
         .btn-spin:hover:not(:disabled) {
@@ -125,7 +150,6 @@
         .btn-reset {
             background: #f97316;
             color: #000;
-            padding: 12px 20px;
         }
 
         .btn-reset:hover {
@@ -134,7 +158,7 @@
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -159,122 +183,76 @@
             color: #22c55e;
         }
 
-        .tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #333;
-        }
-
-        .tab-btn {
-            padding: 10px 16px;
+        .category-selector {
             background: #2a2a2a;
-            color: #aaa;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
+            border: 2px solid #22c55e;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
         }
 
-        .tab-btn.active {
+        .category-selector h3 {
+            margin-bottom: 15px;
             color: #22c55e;
-            border-bottom-color: #22c55e;
+            font-size: 1.1em;
         }
 
-        .tab-btn:hover:not(.active) {
-            color: #fff;
-        }
-
-        .items-grid {
+        .category-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 8px;
-            margin-bottom: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 10px;
-            background: #2a2a2a;
-            border-radius: 6px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
         }
 
-        .item-checkbox {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .item-checkbox input[type="checkbox"] {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .item-checkbox label {
+        .category-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            width: 80px;
-            height: 80px;
+            gap: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
             background: #1a1a1a;
             border: 2px solid #333;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            padding: 4px;
         }
 
-        .item-checkbox input[type="checkbox"]:checked + label {
+        .category-item:hover {
             border-color: #22c55e;
-            background: #1a2a1a;
-            box-shadow: 0 0 8px rgba(34, 197, 94, 0.2);
         }
 
-        .item-checkbox img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
-            margin-bottom: 4px;
+        .category-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
         }
 
-        .item-checkbox span {
-            font-size: 0.65em;
-            text-align: center;
-            color: #aaa;
-            word-break: break-word;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 20px;
-            line-height: 10px;
-        }
-
-        .select-all-btn {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            background: #22c55e;
-            color: #000;
-            border: none;
-            border-radius: 4px;
+        .category-item label {
             cursor: pointer;
             font-weight: bold;
+            flex: 1;
+        }
+
+        .category-count {
+            color: #aaa;
             font-size: 0.9em;
         }
 
-        .select-all-btn:hover {
-            background: #16a34a;
+        .history {
+            background: #2a2a2a;
+            border: 2px solid #22c55e;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 30px;
         }
 
-        .history {
+        .history h3 {
+            margin-bottom: 15px;
+            color: #22c55e;
+        }
+
+        .history-items {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 8px;
-            margin-top: 20px;
-            padding: 15px;
-            background: #2a2a2a;
-            border-radius: 6px;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
         }
 
         .history-item {
@@ -286,8 +264,8 @@
         }
 
         .history-item img {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
@@ -295,16 +273,8 @@
         }
 
         .history-item span {
-            font-size: 0.7em;
+            font-size: 0.8em;
             color: #aaa;
-            display: block;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
             display: block;
         }
 
@@ -322,16 +292,31 @@
     <div class="container">
         <h1>⛏️ Minecraft Roulette</h1>
 
+        <!-- VENCEDOR -->
+        <div class="winner-display">
+            <div id="winnerContent" style="display: none;">
+                <img id="winnerImage" src="" alt="winner">
+                <div class="winner-name" id="winnerName">-</div>
+            </div>
+            <div id="noWinner" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <div style="font-size: 4em;">🎰</div>
+                <div style="color: #aaa;">Clique em GIRAR para começar!</div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL -->
         <div class="carousel-container">
             <div class="carousel-pointer"></div>
-            <div class="carousel" id="carousel"></div>
+            <div class="carousel scrollbar-hide" id="carousel"></div>
         </div>
 
+        <!-- CONTROLES -->
         <div class="controls">
-            <button class="btn-spin" id="spinBtn">GIRAR</button>
-            <button class="btn-reset">RESETAR</button>
+            <button class="btn-spin" id="spinBtn">🎲 GIRAR 🎲</button>
+            <button class="btn-reset">↻ RESETAR</button>
         </div>
 
+        <!-- STATS -->
         <div class="stats">
             <div class="stat-card">
                 <div class="stat-label">Total de Giros</div>
@@ -347,40 +332,43 @@
             </div>
         </div>
 
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="items">Items (831)</button>
-            <button class="tab-btn" data-tab="blocks">Blocos (1228)</button>
-            <button class="tab-btn" data-tab="mobs">Mobs (543)</button>
+        <!-- SELEÇÃO DE CATEGORIAS -->
+        <div class="category-selector">
+            <h3>📦 Selecione o que quer girar:</h3>
+            <div class="category-list">
+                <div class="category-item">
+                    <input type="checkbox" id="cat-items" checked>
+                    <label for="cat-items">Items</label>
+                    <span class="category-count">(831)</span>
+                </div>
+                <div class="category-item">
+                    <input type="checkbox" id="cat-blocks" checked>
+                    <label for="cat-blocks">Blocos</label>
+                    <span class="category-count">(1228)</span>
+                </div>
+                <div class="category-item">
+                    <input type="checkbox" id="cat-mobs" checked>
+                    <label for="cat-mobs">Mobs</label>
+                    <span class="category-count">(543)</span>
+                </div>
+            </div>
         </div>
 
-        <div class="tab-content active" id="items-tab">
-            <button class="select-all-btn" data-category="items">Selecionar Tudo</button>
-            <div class="items-grid scrollbar-hide" id="items-grid"></div>
+        <!-- HISTÓRICO -->
+        <div class="history">
+            <h3>📜 Últimos 20 Giros</h3>
+            <div class="history-items scrollbar-hide" id="history"></div>
         </div>
-
-        <div class="tab-content" id="blocks-tab">
-            <button class="select-all-btn" data-category="blocks">Selecionar Tudo</button>
-            <div class="items-grid scrollbar-hide" id="blocks-grid"></div>
-        </div>
-
-        <div class="tab-content" id="mobs-tab">
-            <button class="select-all-btn" data-category="mobs">Selecionar Tudo</button>
-            <div class="items-grid scrollbar-hide" id="mobs-grid"></div>
-        </div>
-
-        <h3 style="margin-top: 30px; margin-bottom: 15px;">Histórico (últimos 20)</h3>
-        <div class="history" id="history"></div>
     </div>
 
     <script src="/minecraft-roulette/textures.js"></script>
 
     <script>
-        const ITEM_WIDTH = 180;
-        const SPIN_DURATION = 3000;
+        const ITEM_WIDTH = 120;
+        const SPIN_DURATION = 3500;
 
         let isSpinning = false;
-        let selectedCategory = 'items';
-        let currentItems = [];
+        let allItems = [];
         let spinHistory = [];
         let stats = {
             total: 0,
@@ -389,48 +377,32 @@
         };
 
         function init() {
-            renderAllItems();
+            buildItemsList();
             setupEventListeners();
-            updateStats();
+            renderCarousel();
         }
 
-        function renderAllItems() {
-            renderGrid('items-grid', itemsData, 'items');
-            renderGrid('blocks-grid', blocksData, 'blocks');
-            renderGrid('mobs-grid', mobsData, 'mobs');
-            updateCarousel();
-        }
+        function buildItemsList() {
+            const useItems = document.getElementById('cat-items').checked;
+            const useBlocks = document.getElementById('cat-blocks').checked;
+            const useMobs = document.getElementById('cat-mobs').checked;
 
-        function renderGrid(gridId, data, category) {
-            const grid = document.getElementById(gridId);
-            grid.innerHTML = '';
-            data.forEach(id => {
-                const texture = textureMap[id];
-                if (!texture) return;
+            allItems = [];
+            if (useItems) allItems = allItems.concat(itemsData);
+            if (useBlocks) allItems = allItems.concat(blocksData);
+            if (useMobs) allItems = allItems.concat(mobsData);
 
-                const checkbox = document.createElement('div');
-                checkbox.className = 'item-checkbox';
-                checkbox.innerHTML = `
-                    <input type="checkbox" id="${category}-${id}" value="${id}" data-category="${category}" checked>
-                    <label for="${category}-${id}">
-                        <img src="${texture}" alt="${id}" onerror="this.style.display='none'">
-                        <span>${id.replace(/_/g, ' ')}</span>
-                    </label>
-                `;
-                grid.appendChild(checkbox);
-            });
+            if (allItems.length === 0) {
+                allItems = itemsData;
+                document.getElementById('cat-items').checked = true;
+            }
+
+            renderCarousel();
         }
 
         function setupEventListeners() {
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    btn.classList.add('active');
-                    selectedCategory = btn.dataset.tab;
-                    document.getElementById(`${selectedCategory}-tab`).classList.add('active');
-                    updateCarousel();
-                });
+            ['cat-items', 'cat-blocks', 'cat-mobs'].forEach(id => {
+                document.getElementById(id).addEventListener('change', buildItemsList);
             });
 
             document.getElementById('spinBtn').addEventListener('click', spin);
@@ -440,36 +412,10 @@
                 stats = { total: 0, unique: new Set(), counts: {} };
                 updateStats();
                 document.getElementById('history').innerHTML = '';
-                updateCarousel();
+                document.getElementById('noWinner').style.display = 'flex';
+                document.getElementById('winnerContent').style.display = 'none';
+                renderCarousel();
             });
-
-            document.querySelectorAll('.select-all-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const category = btn.dataset.category;
-                    const checkboxes = document.querySelectorAll(`input[data-category="${category}"]`);
-                    const allChecked = Array.from(checkboxes).every(c => c.checked);
-                    checkboxes.forEach(c => c.checked = !allChecked);
-                    updateCarousel();
-                });
-            });
-
-            document.addEventListener('change', (e) => {
-                if (e.target.type === 'checkbox') {
-                    updateCarousel();
-                }
-            });
-        }
-
-        function updateCarousel() {
-            const category = selectedCategory;
-            const checkboxes = document.querySelectorAll(`input[data-category="${category}"]:checked`);
-            currentItems = Array.from(checkboxes).map(c => c.value);
-
-            if (currentItems.length === 0) {
-                currentItems = [category === 'items' ? itemsData[0] : category === 'blocks' ? blocksData[0] : mobsData[0]];
-            }
-
-            renderCarousel();
         }
 
         function renderCarousel() {
@@ -478,18 +424,14 @@
             carousel.style.transform = 'translateX(0)';
             carousel.style.transition = 'none';
 
-            // Renderizar items 100 vezes para garantir conteúdo infinito
-            for (let i = 0; i < 100; i++) {
-                currentItems.forEach((id, idx) => {
+            // Renderizar 150 vezes para garantir animação suave
+            for (let i = 0; i < 150; i++) {
+                allItems.forEach(id => {
                     const texture = textureMap[id];
                     if (!texture) return;
 
                     const div = document.createElement('div');
                     div.className = 'carousel-item';
-                    // Adiciona center class no primeiro item (será o item no meio visualmente)
-                    if (i === 0 && idx === 0) {
-                        div.classList.add('center');
-                    }
                     div.innerHTML = `<img src="${texture}" alt="${id}" onerror="this.style.display='none'">`;
                     carousel.appendChild(div);
                 });
@@ -497,31 +439,41 @@
         }
 
         function spin() {
-            if (isSpinning || currentItems.length === 0) return;
+            if (isSpinning || allItems.length === 0) return;
 
             isSpinning = true;
             document.getElementById('spinBtn').disabled = true;
 
-            const itemCount = currentItems.length;
+            const itemCount = allItems.length;
             const targetIndex = Math.floor(Math.random() * itemCount);
-            const spinCount = 15 + Math.floor(Math.random() * 20);
+            const spinCount = 20 + Math.floor(Math.random() * 25);
 
-            // Calcular distância: precisamos ir até o item vencedor
+            // Calcular distância
             const totalDistance = (spinCount * itemCount + targetIndex) * ITEM_WIDTH;
 
             const carousel = document.getElementById('carousel');
-            carousel.style.transition = `transform ${SPIN_DURATION}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+            carousel.style.transition = `transform ${SPIN_DURATION}ms cubic-bezier(0.15, 0.82, 0.35, 0.99)`;
             carousel.style.transform = `translateX(-${totalDistance}px)`;
 
             setTimeout(() => {
-                const winner = currentItems[targetIndex];
+                const winner = allItems[targetIndex];
                 addToHistory(winner);
+                showWinner(winner);
                 updateStats();
 
                 isSpinning = false;
                 document.getElementById('spinBtn').disabled = false;
-                // NÃO faz reset - deixa na posição final
             }, SPIN_DURATION);
+        }
+
+        function showWinner(itemId) {
+            const texture = textureMap[itemId];
+            if (!texture) return;
+
+            document.getElementById('winnerImage').src = texture;
+            document.getElementById('winnerName').textContent = itemId.replace(/_/g, ' ').toUpperCase();
+            document.getElementById('noWinner').style.display = 'none';
+            document.getElementById('winnerContent').style.display = 'flex';
         }
 
         function addToHistory(itemId) {
@@ -538,7 +490,7 @@
                 div.className = 'history-item';
                 div.innerHTML = `
                     <img src="${texture}" alt="${id}" onerror="this.style.display='none'">
-                    <span>${i + 1}</span>
+                    <span>#${i + 1}</span>
                 `;
                 history.appendChild(div);
             });
