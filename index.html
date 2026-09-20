@@ -5,31 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⛏️ Minecraft Roulette</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #1a1a1a;
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #1a1a1a; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 30px; font-size: 2em; }
 
         .carousel-container {
             position: relative;
@@ -45,12 +24,18 @@
         .carousel {
             display: flex;
             height: 100%;
-            transform: translateX(0);
+            transition: transform 0.05s linear;
             will-change: transform;
+            transform: translateX(0px);
+        }
+
+        .carousel.no-transition {
+            transition: none;
         }
 
         .carousel-item {
-            min-width: 180px;
+            flex-shrink: 0;
+            width: 180px;
             height: 100%;
             display: flex;
             align-items: center;
@@ -69,7 +54,7 @@
 
         .carousel-item.center {
             border: 4px solid #22c55e;
-            box-shadow: inset 0 0 10px rgba(34, 197, 94, 0.3);
+            box-shadow: inset 0 0 15px rgba(34, 197, 94, 0.4);
         }
 
         .carousel-pointer {
@@ -125,7 +110,6 @@
         .btn-reset {
             background: #f97316;
             color: #000;
-            padding: 12px 20px;
         }
 
         .btn-reset:hover {
@@ -134,7 +118,7 @@
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -147,17 +131,8 @@
             text-align: center;
         }
 
-        .stat-label {
-            font-size: 0.9em;
-            color: #aaa;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #22c55e;
-        }
+        .stat-label { font-size: 0.9em; color: #aaa; margin-bottom: 8px; }
+        .stat-value { font-size: 1.8em; font-weight: bold; color: #22c55e; }
 
         .tabs {
             display: flex;
@@ -180,10 +155,6 @@
         .tab-btn.active {
             color: #22c55e;
             border-bottom-color: #22c55e;
-        }
-
-        .tab-btn:hover:not(.active) {
-            color: #fff;
         }
 
         .items-grid {
@@ -260,7 +231,6 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.9em;
         }
 
         .select-all-btn:hover {
@@ -300,13 +270,8 @@
             display: block;
         }
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
         .scrollbar-hide {
             -ms-overflow-style: none;
@@ -372,11 +337,22 @@
         <div class="history" id="history"></div>
     </div>
 
+    <script>
+        // Dados embedrados
+        const DATA = {
+          textures: {},
+          items: [],
+          blocks: [],
+          mobs: []
+        };
+    </script>
+
+    <!-- Carrega dados -->
     <script src="/minecraft-roulette/textures.js"></script>
 
     <script>
         const ITEM_WIDTH = 180;
-        const SPIN_DURATION = 3000;
+        const SPIN_DURATION = 2800;
 
         let isSpinning = false;
         let selectedCategory = 'items';
@@ -388,22 +364,42 @@
             counts: {}
         };
 
+        function getTextureMap() {
+            return window.textureMap || DATA.textures;
+        }
+
+        function getItemsData() {
+            return window.itemsData || DATA.items;
+        }
+
+        function getBlocksData() {
+            return window.blocksData || DATA.blocks;
+        }
+
+        function getMobsData() {
+            return window.mobsData || DATA.mobs;
+        }
+
         function init() {
-            renderAllItems();
-            setupEventListeners();
-            updateStats();
+            setTimeout(() => {
+                renderAllItems();
+                setupEventListeners();
+                updateCarousel();
+                updateStats();
+            }, 100);
         }
 
         function renderAllItems() {
-            renderGrid('items-grid', itemsData, 'items');
-            renderGrid('blocks-grid', blocksData, 'blocks');
-            renderGrid('mobs-grid', mobsData, 'mobs');
-            updateCarousel();
+            renderGrid('items-grid', getItemsData(), 'items');
+            renderGrid('blocks-grid', getBlocksData(), 'blocks');
+            renderGrid('mobs-grid', getMobsData(), 'mobs');
         }
 
         function renderGrid(gridId, data, category) {
             const grid = document.getElementById(gridId);
             grid.innerHTML = '';
+            const textureMap = getTextureMap();
+            
             data.forEach(id => {
                 const texture = textureMap[id];
                 if (!texture) return;
@@ -460,12 +456,12 @@
         }
 
         function updateCarousel() {
-            const category = selectedCategory;
-            const checkboxes = document.querySelectorAll(`input[data-category="${category}"]:checked`);
+            const checkboxes = document.querySelectorAll(`input[data-category="${selectedCategory}"]:checked`);
             currentItems = Array.from(checkboxes).map(c => c.value);
 
             if (currentItems.length === 0) {
-                currentItems = [category === 'items' ? itemsData[0] : category === 'blocks' ? blocksData[0] : mobsData[0]];
+                const data = selectedCategory === 'items' ? getItemsData() : selectedCategory === 'blocks' ? getBlocksData() : getMobsData();
+                currentItems = [data[0]];
             }
 
             renderCarousel();
@@ -474,19 +470,26 @@
         function renderCarousel() {
             const carousel = document.getElementById('carousel');
             carousel.innerHTML = '';
+            const textureMap = getTextureMap();
 
+            // 3 repetições do carousel
             for (let rep = 0; rep < 3; rep++) {
-                currentItems.forEach(id => {
+                currentItems.forEach((id, idx) => {
                     const texture = textureMap[id];
                     if (!texture) return;
 
                     const div = document.createElement('div');
                     div.className = 'carousel-item';
-                    if (rep === 1) div.classList.add('center');
+                    if (rep === 1 && idx === 0) div.classList.add('center');
                     div.innerHTML = `<img src="${texture}" alt="${id}" onerror="this.style.display='none'">`;
                     carousel.appendChild(div);
                 });
             }
+
+            // Reset posição
+            carousel.classList.add('no-transition');
+            carousel.style.transform = 'translateX(0px)';
+            setTimeout(() => carousel.classList.remove('no-transition'), 10);
         }
 
         function spin() {
@@ -497,35 +500,30 @@
 
             const itemCount = currentItems.length;
             const targetIndex = Math.floor(Math.random() * itemCount);
-            const spinCount = 20 + Math.floor(Math.random() * 15);
-
-            const totalDistance = (spinCount * itemCount + targetIndex) * ITEM_WIDTH;
+            const spins = 20 + Math.floor(Math.random() * 15);
 
             const carousel = document.getElementById('carousel');
-            const startTime = Date.now();
+            const totalPixels = (spins * itemCount + targetIndex) * ITEM_WIDTH;
 
-            function animateCarousel() {
-                const elapsed = Date.now() - startTime;
-                const progress = Math.min(elapsed / SPIN_DURATION, 1);
+            carousel.classList.remove('no-transition');
+            carousel.style.transition = `transform ${SPIN_DURATION}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+            carousel.style.transform = `translateX(-${totalPixels}px)`;
 
-                const easeProgress = 1 - Math.pow(1 - progress, 3);
+            setTimeout(() => {
+                isSpinning = false;
+                document.getElementById('spinBtn').disabled = false;
 
-                carousel.style.transform = `translateX(-${totalDistance * easeProgress}px)`;
+                const winner = currentItems[targetIndex];
+                addToHistory(winner);
+                updateStats();
 
-                if (progress < 1) {
-                    requestAnimationFrame(animateCarousel);
-                } else {
-                    carousel.style.transform = `translateX(-${totalDistance}px)`;
-                    isSpinning = false;
-                    document.getElementById('spinBtn').disabled = false;
-
-                    const winner = currentItems[targetIndex];
-                    addToHistory(winner);
-                    updateStats();
-                }
-            }
-
-            animateCarousel();
+                // Reset para próxima rodada
+                setTimeout(() => {
+                    carousel.classList.add('no-transition');
+                    carousel.style.transform = 'translateX(0px)';
+                    renderCarousel();
+                }, 200);
+            }, SPIN_DURATION);
         }
 
         function addToHistory(itemId) {
@@ -534,6 +532,8 @@
 
             const history = document.getElementById('history');
             history.innerHTML = '';
+            const textureMap = getTextureMap();
+
             spinHistory.forEach((id, i) => {
                 const texture = textureMap[id];
                 if (!texture) return;
@@ -542,7 +542,7 @@
                 div.className = 'history-item';
                 div.innerHTML = `
                     <img src="${texture}" alt="${id}" onerror="this.style.display='none'">
-                    <span>${i + 1}</span>
+                    <span>#${i + 1}</span>
                 `;
                 history.appendChild(div);
             });
