@@ -12,640 +12,624 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0a1428 0%, #1a1a2e 50%, #16213e 100%);
-            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            font-family: 'Minecraft', 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
+            padding: 20px;
         }
 
-        .header {
+        header {
             text-align: center;
             margin-bottom: 40px;
-            color: #fff;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        .header h1 {
-            font-size: 2.5em;
+        h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #7ec850, #5aad2a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            color: #7ec850;
-            font-weight: bold;
-            letter-spacing: 2px;
         }
 
-        .header p {
+        .subtitle {
+            color: #a0a0a0;
             font-size: 1.1em;
-            color: #aaa;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
         }
 
-        .roulette-container {
-            background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
-            border: 4px solid #7ec850;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            margin-bottom: 30px;
-        }
-
-        .carousel-wrapper {
-            position: relative;
-            height: 150px;
-            overflow: hidden;
-            border-radius: 15px;
-            background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.8) 100%);
-            border: 2px solid #7ec850;
-            margin-bottom: 30px;
-        }
-
-        .carousel {
+        /* Selector Bar */
+        .selector-bar {
             display: flex;
-            height: 100%;
-            transition: transform 0.1s linear;
-            transform: translateX(0);
-        }
-
-        .carousel-item {
-            min-width: 130px;
-            height: 150px;
-            display: flex;
-            flex-direction: column;
+            gap: 15px;
             justify-content: center;
-            align-items: center;
-            gap: 8px;
-            padding: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 0.9em;
-            font-weight: 500;
-            text-align: center;
-            word-wrap: break-word;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
-        .carousel-item:hover {
+        .category-btn {
+            padding: 10px 20px;
+            border: 2px solid #7ec850;
             background: rgba(126, 200, 80, 0.1);
-            border-color: #7ec850;
-            transform: scale(1.05);
+            color: #7ec850;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
 
-        .carousel-item-icon {
-            font-size: 2.5em;
-            line-height: 1;
+        .category-btn:hover {
+            background: rgba(126, 200, 80, 0.2);
+            transform: translateY(-2px);
         }
 
-        .pointer {
+        .category-btn.active {
+            background: #7ec850;
+            color: #0a0e27;
+            box-shadow: 0 0 20px rgba(126, 200, 80, 0.5);
+        }
+
+        /* Roulette Section */
+        .roulette-section {
+            position: relative;
+            margin-bottom: 50px;
+            animation: fadeIn 0.6s ease-out 0.2s backwards;
+        }
+
+        .selector-pointer {
             position: absolute;
-            top: -15px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
-            border-top: 20px solid #7ec850;
+            border-top: 30px solid #7ec850;
             z-index: 10;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
+        .carousel-container {
+            position: relative;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 3px solid #7ec850;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(126, 200, 80, 0.3),
+                inset 0 0 20px rgba(126, 200, 80, 0.1);
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .carousel-item {
+            flex: 0 0 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0.6;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .carousel-item.center {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .item-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .carousel-item.center .item-icon {
+            box-shadow: 
+                0 0 20px rgba(126, 200, 80, 0.6),
+                0 0 40px rgba(126, 200, 80, 0.3),
+                inset 0 0 10px rgba(126, 200, 80, 0.2);
+            border: 3px solid #7ec850;
+            animation: glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(126, 200, 80, 0.6), 0 0 40px rgba(126, 200, 80, 0.3), inset 0 0 10px rgba(126, 200, 80, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(126, 200, 80, 0.8), 0 0 60px rgba(126, 200, 80, 0.4), inset 0 0 15px rgba(126, 200, 80, 0.3); }
+        }
+
+        .item-icon svg {
+            width: 70%;
+            height: 70%;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .item-name {
+            font-size: 0.9em;
+            text-align: center;
+            color: #b0b0b0;
+            max-width: 140px;
+            text-transform: capitalize;
+            transition: color 0.2s ease;
+        }
+
+        .carousel-item.center .item-name {
+            color: #7ec850;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(126, 200, 80, 0.5);
+        }
+
+        /* Controls */
         .controls {
             display: flex;
+            justify-content: center;
             gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
+            margin-bottom: 40px;
         }
 
-        .toggle-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            background: rgba(126, 200, 80, 0.1);
-            padding: 15px 20px;
-            border-radius: 10px;
-            border: 1px solid #7ec850;
-        }
-
-        .toggle-group label {
-            color: #fff;
-            font-size: 0.95em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .toggle-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #7ec850;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        button {
+        .btn {
             padding: 12px 30px;
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: bold;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        .spin-btn {
-            background: linear-gradient(135deg, #7ec850 0%, #5fa038 100%);
-            color: #000;
-            padding: 15px 50px;
-            font-size: 1.2em;
-            min-width: 200px;
+        .btn-spin {
+            background: linear-gradient(135deg, #7ec850, #5aad2a);
+            color: white;
+            min-width: 150px;
+            box-shadow: 0 5px 20px rgba(126, 200, 80, 0.3);
         }
 
-        .spin-btn:hover:not(:disabled) {
+        .btn-spin:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(126, 200, 80, 0.4);
+            box-shadow: 0 8px 30px rgba(126, 200, 80, 0.5);
         }
 
-        .spin-btn:active:not(:disabled) {
+        .btn-spin:active:not(:disabled) {
             transform: translateY(0);
         }
 
-        .spin-btn:disabled {
+        .btn-spin:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
 
-        .reset-btn {
-            background: rgba(126, 200, 80, 0.2);
+        .btn-secondary {
+            background: rgba(126, 200, 80, 0.15);
             color: #7ec850;
             border: 2px solid #7ec850;
         }
 
-        .reset-btn:hover {
-            background: rgba(126, 200, 80, 0.3);
+        .btn-secondary:hover {
+            background: rgba(126, 200, 80, 0.25);
             transform: translateY(-2px);
         }
 
-        .result-container {
-            background: linear-gradient(135deg, rgba(126, 200, 80, 0.1) 0%, rgba(126, 200, 80, 0.05) 100%);
-            border: 2px solid #7ec850;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            color: #fff;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .result-label {
-            font-size: 0.95em;
-            color: #aaa;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .result-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .result-icon {
-            font-size: 3em;
-        }
-
-        .result-text {
-            font-size: 2em;
-            font-weight: bold;
-            color: #7ec850;
-            text-shadow: 0 2px 10px rgba(126, 200, 80, 0.3);
-        }
-
-        .stats {
+        /* Stats Section */
+        .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .stat-card {
-            background: rgba(126, 200, 80, 0.05);
-            border: 1px solid #7ec850;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #7ec850;
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            color: #fff;
+            box-shadow: 0 0 20px rgba(126, 200, 80, 0.2);
+            animation: slideIn 0.6s ease-out;
         }
 
-        .stat-label {
-            font-size: 0.9em;
-            color: #aaa;
-            margin-bottom: 8px;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .stat-value {
-            font-size: 1.8em;
-            font-weight: bold;
+            font-size: 2.5em;
             color: #7ec850;
+            font-weight: bold;
+            margin: 10px 0;
         }
 
-        .history-container {
-            background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
-            border: 2px solid #7ec850;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
+        .stat-label {
+            color: #b0b0b0;
+            font-size: 0.95em;
+            text-transform: uppercase;
+        }
+
+        /* History Section */
+        .history-section {
+            margin-top: 40px;
+            animation: fadeIn 0.8s ease-out 0.4s backwards;
         }
 
         .history-title {
+            font-size: 1.3em;
             color: #7ec850;
-            font-size: 1.2em;
-            font-weight: bold;
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .history-items {
-            display: flex;
-            flex-wrap: wrap;
+        .history-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 10px;
-            max-height: 150px;
+            max-height: 300px;
             overflow-y: auto;
         }
 
         .history-item {
+            background: rgba(126, 200, 80, 0.1);
+            border: 1px solid rgba(126, 200, 80, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #b0b0b0;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(126, 200, 80, 0.1);
-            border: 1px solid #7ec850;
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: #fff;
-            font-size: 0.95em;
+            justify-content: center;
+            min-height: 60px;
         }
 
-        .history-icon {
-            font-size: 1.3em;
+        .history-item:hover {
+            background: rgba(126, 200, 80, 0.2);
+            border-color: rgba(126, 200, 80, 0.6);
+            color: #7ec850;
         }
 
+        /* Responsivo */
         @media (max-width: 768px) {
-            .header h1 {
+            h1 {
                 font-size: 2em;
             }
 
             .carousel-item {
-                min-width: 100px;
-                height: 120px;
-                gap: 6px;
+                flex: 0 0 120px;
             }
 
-            .carousel-item-icon {
-                font-size: 2em;
+            .item-icon {
+                width: 60px;
+                height: 60px;
             }
 
-            .carousel-wrapper {
-                height: 130px;
+            .controls {
+                flex-direction: column;
+                gap: 10px;
             }
 
-            .spin-btn {
-                min-width: 150px;
-                padding: 12px 25px;
-                font-size: 1em;
-            }
-
-            .result-text {
-                font-size: 1.5em;
-            }
-
-            .result-icon {
-                font-size: 2em;
+            .btn {
+                width: 100%;
             }
         }
 
-        .spinner-animation {
-            animation: spin 0.4s ease-in-out;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
-        @keyframes spin {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        /* Scrollbar */
+        .history-list::-webkit-scrollbar {
+            width: 8px;
         }
 
-        ::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
+        .history-list::-webkit-scrollbar-track {
             background: rgba(126, 200, 80, 0.1);
+            border-radius: 10px;
         }
 
-        ::-webkit-scrollbar-thumb {
+        .history-list::-webkit-scrollbar-thumb {
             background: #7ec850;
-            border-radius: 3px;
+            border-radius: 10px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #5fa038;
+        .history-list::-webkit-scrollbar-thumb:hover {
+            background: #5aad2a;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>⛏️ MINECRAFT ROULETTE ⛏️</h1>
-            <p>Gire a roleta e descubra qual item ou bloco você vai pegar!</p>
+        <header>
+            <h1>⛏️ Minecraft Roulette</h1>
+            <p class="subtitle">Escolha uma categoria e gire!</p>
+        </header>
+
+        <div class="selector-bar">
+            <button class="category-btn active" data-category="items">Items</button>
+            <button class="category-btn" data-category="blocks">Blocos</button>
+            <button class="category-btn" data-category="mobs">Mobs</button>
+            <button class="category-btn" data-category="all">Todos</button>
         </div>
 
-        <div class="roulette-container">
-            <div class="carousel-wrapper">
-                <div class="pointer"></div>
-                <div class="carousel" id="carousel"></div>
+        <div class="roulette-section">
+            <div class="selector-pointer"></div>
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack"></div>
             </div>
+        </div>
 
-            <div class="controls">
-                <div class="toggle-group">
-                    <label>
-                        <input type="checkbox" id="itemsToggle" checked> Items
-                    </label>
-                    <label>
-                        <input type="checkbox" id="blocksToggle" checked> Blocos
-                    </label>
-                    <label>
-                        <input type="checkbox" id="mobsToggle" checked> Mobs
-                    </label>
-                </div>
-            </div>
+        <div class="controls">
+            <button class="btn btn-spin" id="spinBtn">🎲 GIRAR</button>
+            <button class="btn btn-secondary" id="resetBtn">↻ Resetar</button>
+        </div>
 
-            <div class="button-group">
-                <button class="spin-btn" id="spinBtn">🎯 GIRAR!</button>
-                <button class="reset-btn" id="resetBtn">↺ Reiniciar</button>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-label">Giros Totais</div>
+                <div class="stat-value" id="totalSpins">0</div>
             </div>
+            <div class="stat-card">
+                <div class="stat-label">Itens Únicos</div>
+                <div class="stat-value" id="uniqueItems">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Favorito</div>
+                <div class="stat-value" id="favoriteItem">-</div>
+            </div>
+        </div>
 
-            <div class="result-container">
-                <div class="result-label">Resultado:</div>
-                <div class="result-content">
-                    <div class="result-icon" id="resultIcon">🎮</div>
-                    <div class="result-text" id="resultText">Clique em GIRAR</div>
-                </div>
-            </div>
-
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label">Total de Giros</div>
-                    <div class="stat-value" id="totalSpins">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Itens Únicos</div>
-                    <div class="stat-value" id="uniqueItems">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Item Favorito</div>
-                    <div class="result-icon" id="favItem">-</div>
-                </div>
-            </div>
-
-            <div class="history-container">
-                <div class="history-title">📜 Histórico (últimas 20)</div>
-                <div class="history-items" id="historyItems"></div>
-            </div>
+        <div class="history-section">
+            <div class="history-title">Histórico (últimos 20)</div>
+            <div class="history-list" id="historyList"></div>
         </div>
     </div>
 
     <script>
-        // Items do Minecraft
-        const minecraftItems = {
+        // Items data com ícones emoji
+        const itemsData = {
             items: [
-                { name: 'Maçã', icon: '🍎' },
-                { name: 'Trigo', icon: '🌾' },
-                { name: 'Ferro', icon: '⚙️' },
-                { name: 'Ouro', icon: '✨' },
-                { name: 'Diamante', icon: '💎' },
-                { name: 'Esmeralda', icon: '🟢' },
-                { name: 'Lapis Lazuli', icon: '🔵' },
-                { name: 'Redstone', icon: '🔴' },
-                { name: 'Carvão', icon: '⚫' },
-                { name: 'Obsidiana', icon: '🖤' },
-                { name: 'Netherrite', icon: '🟫' },
-                { name: 'Ender Pérola', icon: '👁️' },
-                { name: 'Kristal do End', icon: '⭐' },
-                { name: 'Maçã Dourada', icon: '🏆' },
-                { name: 'Pó de Blaze', icon: '🔥' },
-                { name: 'Varinha Fermentada', icon: '🪄' },
-                { name: 'Olho de Aranha', icon: '🕷️' },
-                { name: 'Osso', icon: '🦴' },
-                { name: 'String', icon: '🧵' },
-                { name: 'Couro', icon: '🎀' }
+                { id: 'apple', name: 'Maçã', icon: '🍎' },
+                { id: 'wheat', name: 'Trigo', icon: '🌾' },
+                { id: 'diamond', name: 'Diamante', icon: '💎' },
+                { id: 'emerald', name: 'Esmeralda', icon: '💚' },
+                { id: 'gold_ingot', name: 'Ouro', icon: '🟡' },
+                { id: 'iron_ingot', name: 'Ferro', icon: '⬜' },
+                { id: 'coal', name: 'Carvão', icon: '⬛' },
+                { id: 'stick', name: 'Graveto', icon: '🪵' },
+                { id: 'book', name: 'Livro', icon: '📖' },
+                { id: 'bone', name: 'Osso', icon: '🦴' },
+                { id: 'string', name: 'Corda', icon: '📍' },
+                { id: 'ender_pearl', name: 'Pérola do End', icon: '🔮' },
+                { id: 'gunpowder', name: 'Pólvora', icon: '💥' },
+                { id: 'leather', name: 'Couro', icon: '🧥' },
+                { id: 'arrow', name: 'Flecha', icon: '🏹' },
+                { id: 'clay_ball', name: 'Argila', icon: '⚪' },
+                { id: 'feather', name: 'Pena', icon: '🪶' },
+                { id: 'redstone', name: 'Redstone', icon: '🔴' },
+                { id: 'glowstone', name: 'Pedra Brilhante', icon: '✨' },
+                { id: 'obsidian', name: 'Obsidiana', icon: '🟣' }
             ],
             blocks: [
-                { name: 'Pedra', icon: '🪨' },
-                { name: 'Grama', icon: '🌿' },
-                { name: 'Areia', icon: '🏜️' },
-                { name: 'Madeira', icon: '🪵' },
-                { name: 'Folhas', icon: '🍂' },
-                { name: 'Vidro', icon: '🪟' },
-                { name: 'Água', icon: '💧' },
-                { name: 'Lava', icon: '🌋' },
-                { name: 'Terra', icon: '🟫' },
-                { name: 'Argila', icon: '⬜' },
-                { name: 'Areia Vermelha', icon: '🟠' },
-                { name: 'Pedra Nether', icon: '🟪' },
-                { name: 'Bloco de Ouro', icon: '🟨' },
-                { name: 'Bloco de Diamante', icon: '🟦' },
-                { name: 'Anvil', icon: '🔨' },
-                { name: 'Pista de Ativação', icon: '⚡' },
-                { name: 'Escada', icon: '🪜' },
-                { name: 'Porta', icon: '🚪' },
-                { name: 'Cama', icon: '🛏️' },
-                { name: 'Baú', icon: '📦' }
+                { id: 'stone', name: 'Pedra', icon: '🪨' },
+                { id: 'grass', name: 'Grama', icon: '🟢' },
+                { id: 'dirt', name: 'Terra', icon: '🟫' },
+                { id: 'sand', name: 'Areia', icon: '🟨' },
+                { id: 'oak_wood', name: 'Madeira de Carvalho', icon: '🪚' },
+                { id: 'oak_leaves', name: 'Folhas de Carvalho', icon: '🍃' },
+                { id: 'cobblestone', name: 'Pedra Irregular', icon: '🏔️' },
+                { id: 'bedrock', name: 'Rocha Matriz', icon: '🟫' },
+                { id: 'lava', name: 'Lava', icon: '🌋' },
+                { id: 'water', name: 'Água', icon: '💧' },
+                { id: 'oak_planks', name: 'Tábuas de Carvalho', icon: '📦' },
+                { id: 'chest', name: 'Baú', icon: '📦' },
+                { id: 'furnace', name: 'Forno', icon: '🔥' },
+                { id: 'crafting_table', name: 'Mesa de Trabalho', icon: '🛠️' },
+                { id: 'iron_ore', name: 'Minério de Ferro', icon: '⬜' },
+                { id: 'gold_ore', name: 'Minério de Ouro', icon: '🟡' },
+                { id: 'diamond_ore', name: 'Minério de Diamante', icon: '💎' },
+                { id: 'emerald_ore', name: 'Minério de Esmeralda', icon: '💚' },
+                { id: 'glass', name: 'Vidro', icon: '🔲' },
+                { id: 'bookshelf', name: 'Estante de Livros', icon: '📚' }
             ],
             mobs: [
-                { name: 'Creeper', icon: '💚' },
-                { name: 'Skeleton', icon: '💀' },
-                { name: 'Zombie', icon: '🧟' },
-                { name: 'Spider', icon: '🕷️' },
-                { name: 'Enderman', icon: '👤' },
-                { name: 'Wither', icon: '⚫' },
-                { name: 'Dragon', icon: '🐉' },
-                { name: 'Villager', icon: '👨' },
-                { name: 'Cow', icon: '🐄' },
-                { name: 'Pig', icon: '🐷' },
-                { name: 'Sheep', icon: '🐑' },
-                { name: 'Chicken', icon: '🐔' },
-                { name: 'Horse', icon: '🐴' },
-                { name: 'Wolf', icon: '🐺' },
-                { name: 'Cat', icon: '🐱' },
-                { name: 'Bee', icon: '🐝' },
-                { name: 'Salmon', icon: '🐟' },
-                { name: 'Axolotl', icon: '🦎' },
-                { name: 'Frog', icon: '🐸' },
-                { name: 'Panda', icon: '🐼' }
+                { id: 'creeper', name: 'Creeper', icon: '💚' },
+                { id: 'skeleton', name: 'Esqueleto', icon: '💀' },
+                { id: 'zombie', name: 'Zumbi', icon: '🧟' },
+                { id: 'spider', name: 'Aranha', icon: '🕷️' },
+                { id: 'enderman', name: 'Enderman', icon: '🟫' },
+                { id: 'dragon', name: 'Dragão do End', icon: '🐉' },
+                { id: 'wither', name: 'Wither', icon: '☠️' },
+                { id: 'witch', name: 'Bruxa', icon: '🧙' },
+                { id: 'ghast', name: 'Ghast', icon: '👻' },
+                { id: 'blaze', name: 'Blaze', icon: '🔥' },
+                { id: 'magma_cube', name: 'Cubo de Magma', icon: '🟠' },
+                { id: 'pigman', name: 'Homem-Porco Zombie', icon: '🐷' },
+                { id: 'guardian', name: 'Guardião', icon: '🐟' },
+                { id: 'silverfish', name: 'Traça de Prata', icon: '🪳' },
+                { id: 'cave_spider', name: 'Aranha de Caverna', icon: '🕷️' },
+                { id: 'phantom', name: 'Phantom', icon: '👁️' },
+                { id: 'pillager', name: 'Saqueador', icon: '👹' },
+                { id: 'ravager', name: 'Devastador', icon: '🐄' },
+                { id: 'hoglin', name: 'Hoglin', icon: '🐗' },
+                { id: 'piglin', name: 'Piglin', icon: '👹' }
             ]
         };
 
-        let allItems = [];
+        let currentCategory = 'items';
+        let allItems = [...itemsData.items];
+        let stats = {
+            totalSpins: 0,
+            uniqueItems: new Set(),
+            itemCounts: {},
+            history: []
+        };
         let isSpinning = false;
-        let history = [];
-        let spinStats = {};
-        let carouselOffset = 0;
 
-        const carousel = document.getElementById('carousel');
+        const carouselTrack = document.getElementById('carouselTrack');
         const spinBtn = document.getElementById('spinBtn');
         const resetBtn = document.getElementById('resetBtn');
-        const resultText = document.getElementById('resultText');
-        const resultIcon = document.getElementById('resultIcon');
         const totalSpinsEl = document.getElementById('totalSpins');
         const uniqueItemsEl = document.getElementById('uniqueItems');
-        const favItemEl = document.getElementById('favItem');
-        const historyItemsEl = document.getElementById('historyItems');
+        const favoriteItemEl = document.getElementById('favoriteItem');
+        const historyList = document.getElementById('historyList');
+        const categoryBtns = document.querySelectorAll('.category-btn');
 
-        const itemsToggle = document.getElementById('itemsToggle');
-        const blocksToggle = document.getElementById('blocksToggle');
-        const mobsToggle = document.getElementById('mobsToggle');
-
-        function updateItemsList() {
-            allItems = [];
-            if (itemsToggle.checked) allItems.push(...minecraftItems.items);
-            if (blocksToggle.checked) allItems.push(...minecraftItems.blocks);
-            if (mobsToggle.checked) allItems.push(...minecraftItems.mobs);
-
-            if (allItems.length === 0) {
-                itemsToggle.checked = true;
-                allItems = [...minecraftItems.items];
-            }
-
-            renderCarousel();
-        }
+        // Change category
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                const category = e.target.dataset.category;
+                if (category === 'all') {
+                    allItems = [
+                        ...itemsData.items,
+                        ...itemsData.blocks,
+                        ...itemsData.mobs
+                    ];
+                } else {
+                    allItems = [...itemsData[category]];
+                }
+                currentCategory = category;
+                
+                renderCarousel();
+            });
+        });
 
         function renderCarousel() {
-            carousel.innerHTML = '';
-            allItems.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'carousel-item';
-                div.innerHTML = `<div class="carousel-item-icon">${item.icon}</div><div>${item.name}</div>`;
-                carousel.appendChild(div);
+            carouselTrack.innerHTML = '';
+            
+            // Triplicar items para criar efeito infinito
+            const tripleItems = [...allItems, ...allItems, ...allItems];
+            
+            tripleItems.forEach((item, index) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'carousel-item' + (index === allItems.length + Math.floor(allItems.length / 2) ? ' center' : '');
+                itemEl.innerHTML = `
+                    <div class="item-icon">
+                        <span style="font-size: 2em;">${item.icon}</span>
+                    </div>
+                    <div class="item-name">${item.name}</div>
+                `;
+                carouselTrack.appendChild(itemEl);
             });
+            
+            // Posicionar no centro
+            const itemWidth = 150;
+            const offset = -allItems.length * itemWidth;
+            carouselTrack.style.transform = `translateX(${offset}px)`;
         }
 
-        function spin() {
-            if (isSpinning || allItems.length === 0) return;
-
+        function spinRoulette() {
+            if (isSpinning) return;
+            
             isSpinning = true;
             spinBtn.disabled = true;
-
-            const spins = 30 + Math.floor(Math.random() * 20);
-            const selectedIndex = Math.floor(Math.random() * allItems.length);
-            const itemWidth = 130;
-            const finalOffset = selectedIndex * itemWidth;
-
+            
+            const spins = 15 + Math.floor(Math.random() * 10);
+            const randomIndex = Math.floor(Math.random() * allItems.length);
+            const itemWidth = 150;
+            
             let currentSpin = 0;
-
+            
             const spinInterval = setInterval(() => {
-                if (currentSpin < spins) {
-                    carouselOffset = (carouselOffset + itemWidth) % (allItems.length * itemWidth);
-                    carousel.style.transform = `translateX(-${carouselOffset}px)`;
-                    currentSpin++;
-                } else {
-                    carousel.style.transform = `translateX(-${finalOffset}px)`;
+                currentSpin++;
+                const offset = -allItems.length * itemWidth + (randomIndex * itemWidth) - (currentSpin * itemWidth);
+                carouselTrack.style.transform = `translateX(${offset}px)`;
+                
+                if (currentSpin >= spins) {
                     clearInterval(spinInterval);
                     
-                    const selected = allItems[selectedIndex];
-                    showResult(selected);
-                    recordSpin(selected);
+                    const selectedItem = allItems[randomIndex];
+                    recordSpin(selectedItem);
                     
                     isSpinning = false;
                     spinBtn.disabled = false;
                 }
-            }, 30);
-        }
-
-        function showResult(item) {
-            resultIcon.textContent = item.icon;
-            resultText.textContent = item.name;
-            resultIcon.classList.add('spinner-animation');
-            setTimeout(() => resultIcon.classList.remove('spinner-animation'), 400);
+            }, 50);
         }
 
         function recordSpin(item) {
-            history.unshift(item);
-            if (history.length > 20) history.pop();
-
-            spinStats[item.name] = (spinStats[item.name] || 0) + 1;
+            stats.totalSpins++;
+            stats.uniqueItems.add(item.id);
+            stats.itemCounts[item.id] = (stats.itemCounts[item.id] || 0) + 1;
+            stats.history.unshift(item.name);
+            if (stats.history.length > 20) stats.history.pop();
             
             updateStats();
-            updateHistory();
         }
 
         function updateStats() {
-            totalSpinsEl.textContent = Object.values(spinStats).reduce((a, b) => a + b, 0);
-            uniqueItemsEl.textContent = Object.keys(spinStats).length;
-
-            let favItem = Object.keys(spinStats).reduce((a, b) => 
-                spinStats[a] > spinStats[b] ? a : b, Object.keys(spinStats)[0]
-            );
-
-            if (favItem) {
-                const item = allItems.find(i => i.name === favItem);
-                favItemEl.textContent = item ? item.icon : '-';
+            totalSpinsEl.textContent = stats.totalSpins;
+            uniqueItemsEl.textContent = stats.uniqueItems.size;
+            
+            // Favorite item
+            if (Object.keys(stats.itemCounts).length > 0) {
+                const favorite = Object.keys(stats.itemCounts).reduce((a, b) => 
+                    stats.itemCounts[a] > stats.itemCounts[b] ? a : b
+                );
+                const favoriteData = allItems.find(item => item.id === favorite);
+                favoriteItemEl.textContent = favoriteData ? favoriteData.name : '-';
             }
+            
+            // History
+            historyList.innerHTML = stats.history.map(name => 
+                `<div class="history-item">${name}</div>`
+            ).join('');
         }
 
-        function updateHistory() {
-            historyItemsEl.innerHTML = '';
-            history.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'history-item';
-                div.innerHTML = `<div class="history-icon">${item.icon}</div><div>${item.name}</div>`;
-                historyItemsEl.appendChild(div);
-            });
-        }
-
-        function reset() {
-            history = [];
-            spinStats = {};
-            carouselOffset = 0;
-            carousel.style.transform = 'translateX(0)';
-            resultIcon.textContent = '🎮';
-            resultText.textContent = 'Clique em GIRAR';
+        function resetAll() {
+            stats = {
+                totalSpins: 0,
+                uniqueItems: new Set(),
+                itemCounts: {},
+                history: []
+            };
             updateStats();
-            updateHistory();
         }
 
-        spinBtn.addEventListener('click', spin);
-        resetBtn.addEventListener('click', reset);
-        itemsToggle.addEventListener('change', updateItemsList);
-        blocksToggle.addEventListener('change', updateItemsList);
-        mobsToggle.addEventListener('change', updateItemsList);
+        spinBtn.addEventListener('click', spinRoulette);
+        resetBtn.addEventListener('click', resetAll);
 
-        // Inicializar
-        updateItemsList();
+        // Initialize
+        renderCarousel();
+        updateStats();
     </script>
 </body>
 </html>
