@@ -478,14 +478,16 @@
             carousel.style.transform = 'translateX(0)';
             carousel.innerHTML = '';
 
-            for (let rep = 0; rep < 3; rep++) {
+            // 60 repetições garante conteúdo para qualquer spin
+            for (let rep = 0; rep < 60; rep++) {
                 currentItems.forEach(id => {
                     const texture = textureMap[id];
                     if (!texture) return;
 
                     const div = document.createElement('div');
                     div.className = 'carousel-item';
-                    if (rep === 1) div.classList.add('center');
+                    // Center item está na posição 29 (meio das 60 repetições)
+                    if (rep === 29 && currentItems.indexOf(id) === 0) div.classList.add('center');
                     div.innerHTML = `<img src="${texture}" alt="${id}" onerror="this.style.display='none'">`;
                     carousel.appendChild(div);
                 });
